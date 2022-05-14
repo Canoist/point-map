@@ -1,21 +1,21 @@
 import React from "react";
 import { Navigate, useRoutes } from "react-router-dom";
+import NavBar from "./components/navBar";
 import Map from "./pages/map";
-import PointAdd from "./pages/pointAdd";
-import PointList from "./pages/pointList";
 
 const App: React.FC = (): JSX.Element => {
   const mainRoutes = {
     path: "/",
     element: <Map />,
-    children: [
-      { path: "*", element: <Navigate to="/" /> },
-      { path: "addPoint", element: <PointAdd /> },
-      { path: "pointList", element: <PointList /> },
-    ],
+    children: [{ path: "*", element: <Navigate to="/" /> }],
   };
   const routing = useRoutes([mainRoutes]);
-  return <>{routing}</>;
+  return (
+    <>
+      <NavBar />
+      {routing}
+    </>
+  );
 };
 
 export default App;
