@@ -34,10 +34,7 @@ const App: React.FC = (): JSX.Element => {
   const [pointList, setPointList] = useState<any>(initialData);
 
   const handleSubmit = (incomingData: any) => {
-    console.log(incomingData);
-    setPointList((prev: any) => prev);
-    //   (prev) => prev.push(incomingData)
-    // localStorage.setItem("geoData", JSON.stringify(pointList));
+    setPointList((prev: any) => [...prev, incomingData]);
   };
 
   const handleDelete = (id: any) => {

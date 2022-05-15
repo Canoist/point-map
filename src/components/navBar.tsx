@@ -32,7 +32,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <span>
-          <PointAdd onSubmit={onSubmit} />
+          <PointAdd onSubmit={onSubmit} toMap={handleChange} />
         </span>
       </TabPanel>
       <TabPanel value={value} index={2}>
