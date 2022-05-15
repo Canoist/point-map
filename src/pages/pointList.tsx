@@ -60,7 +60,7 @@ const PointList: React.FC<PointListProps> = (props: PointListProps) => {
           )
         )
       ) : (
-        <Typography sx={{ mt: 4, mb: 2 }} variant="subtitle1" component="span">
+        <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
           Список пуст
         </Typography>
       )}
