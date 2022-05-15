@@ -9,6 +9,7 @@ const initialData: any = [
       ID: "60.6788189882135130.00185121217478",
       NAME: "База рафтинга Кивиниеми",
       DESCRIPTIO: "Основную часть кода писал здесь",
+      date: 1652247815757,
     },
     geometry: {
       type: "Point",
@@ -22,6 +23,7 @@ const initialData: any = [
       NAME: "Фигурное озеро",
       DESCRIPTIO:
         "Был судьей на соревнованиях по рафингу на этом озере 14-15 мая",
+      date: 1652647215757,
     },
     geometry: {
       type: "Point",
@@ -35,6 +37,7 @@ const App: React.FC = (): JSX.Element => {
 
   const handleSubmit = (incomingData: any) => {
     setPointList((prev: any) => [...prev, incomingData]);
+    console.log(incomingData);
   };
 
   const handleDelete = (id: any) => {

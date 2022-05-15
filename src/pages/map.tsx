@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import moment from "moment";
 
 interface MapProps {
   points: any;
@@ -48,6 +49,11 @@ const Map: React.FC<MapProps> = (props: MapProps) => {
               },
             }}>
             <div>
+              <p>
+                {moment(activeLoaction.properties.date).format(
+                  "DD.MM.YY HH:mm"
+                )}
+              </p>
               <h2>{activeLoaction.properties.NAME}</h2>
               <p>{activeLoaction.properties.DESCRIPTIO}</p>
             </div>

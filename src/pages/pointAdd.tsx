@@ -14,7 +14,7 @@ const PointAdd: React.FC<PointAddProps> = (props: PointAddProps) => {
     e.preventDefault();
     const newData = transformData(data);
     onSubmit(newData);
-    toMap(null,0);
+    toMap(null, 0);
   };
 
   function transformData(data: any) {
@@ -24,6 +24,7 @@ const PointAdd: React.FC<PointAddProps> = (props: PointAddProps) => {
         ID: data.lon + data.lat,
         NAME: data.NAME,
         DESCRIPTIO: data.DESCRIPTIO,
+        date: Date.now(),
       },
       geometry: {
         type: "Point",
