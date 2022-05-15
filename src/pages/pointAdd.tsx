@@ -1,6 +1,10 @@
 import React from "react";
 
-const PointAdd = () => {
+interface PointAddProps {
+  onSubmit: any;
+}
+
+const PointAdd: React.FC<PointAddProps> = (props: PointAddProps) => {
   return (
     <div>
       Вкладка для добавления точки, на которой вводится название, описание точки

@@ -6,8 +6,17 @@ import PointList from "../pages/pointList";
 import TabPanel from "./tabPanel";
 import TabsBox from "./tabsBox";
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  points: any;
+  onSubmit: any;
+  onDelete: any;
+}
+
+const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   const [value, setValue] = useState(0);
+  const { points, onSubmit, onDelete } = props;
+
+  //   console.log(points);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -17,13 +26,19 @@ const NavBar: React.FC = () => {
     <Box sx={{ width: "100%" }}>
       <TabsBox value={value} onChange={handleChange} />
       <TabPanel value={value} index={0}>
-        <Map />
+        <span>
+          <Map points={points} />
+        </span>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PointAdd />
+        <span>
+          <PointAdd onSubmit={onSubmit} />
+        </span>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <PointList />
+        <span>
+          <PointList points={points} onDelete={onDelete} />
+        </span>
       </TabPanel>
     </Box>
   );
