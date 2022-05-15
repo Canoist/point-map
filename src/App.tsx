@@ -41,7 +41,7 @@ const App: React.FC = (): JSX.Element => {
     const newList: any = pointList.filter(
       (item: any) => item.properties.ID !== id
     );
-    console.log(newList);
+    setPointList(newList);
   };
 
   return (
