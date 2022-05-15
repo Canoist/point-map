@@ -40,8 +40,11 @@ const App: React.FC = (): JSX.Element => {
     // localStorage.setItem("geoData", JSON.stringify(pointList));
   };
 
-  const handleDelete = (data: any) => {
-    console.log(data);
+  const handleDelete = (id: any) => {
+    const newList: any = pointList.filter(
+      (item: any) => item.properties.ID !== id
+    );
+    console.log(newList);
   };
 
   return (
