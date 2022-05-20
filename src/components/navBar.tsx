@@ -16,7 +16,6 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   const [value, setValue] = useState(0);
   const { points, onSubmit, onDelete } = props;
 
-  //   console.log(points);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
