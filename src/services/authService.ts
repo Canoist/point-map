@@ -7,7 +7,7 @@ const httpAuth = axios.create({
     params: { key: process.env.REACT_APP_FIREBASE_KEY },
 });
 
-interface IEmailAndPassword {
+export interface IEmailAndPassword {
     [key: string]: string;
 }
 
