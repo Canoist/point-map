@@ -1,4 +1,9 @@
-import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+    createAction,
+    createSlice,
+    Dispatch,
+    PayloadAction,
+} from "@reduxjs/toolkit";
 import authService, { IEmailAndPassword } from "../services/authService";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
@@ -89,7 +94,7 @@ const authRequested = createAction("users/authRequested");
 const userUpdateRequested = createAction("users/userUpdateRequested");
 const userUpdateFailed = createAction("users/userUpdateFailed");
 
-export const signUp = (payload: any) => async (dispatch: any) => {
+export const signUp = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(authRequested());
     try {
         const data = await authService.register(payload);
@@ -118,7 +123,7 @@ export const logIn =
         payload,
     }: // redirect
     LoginType) =>
-    async (dispatch: any) => {
+    async (dispatch: Dispatch) => {
         const { email, password } = payload;
         dispatch(authRequested());
         try {
@@ -139,7 +144,7 @@ export const logIn =
         }
     };
 
-export const deleteUser = () => async (dispatch: any) => {
+export const deleteUser = () => async (dispatch: Dispatch) => {
     try {
         const user = await userService.delete();
         if (user._id === localStorageService.getUserId()) {
@@ -152,13 +157,13 @@ export const deleteUser = () => async (dispatch: any) => {
     }
 };
 
-export const logOut = () => (dispatch: any) => {
+export const logOut = () => (dispatch: Dispatch) => {
     localStorageService.removeAuthData();
     dispatch(userLoggedOut());
     //   history.push("/");
 };
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = () => async (dispatch: Dispatch) => {
     dispatch(usersRequested());
     try {
         const user = await userService.get();
@@ -168,7 +173,7 @@ export const loadUser = () => async (dispatch) => {
     }
 };
 
-export const updateUser = (payload: any) => async (dispatch) => {
+export const updateUser = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(userUpdateRequested());
     try {
         const data = await userService.patch(payload);
