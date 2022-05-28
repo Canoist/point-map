@@ -1,5 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
-import pointsService from "../services/pointService";
+import pointsService from "../services/pointsService";
 
 type PointDateType = {
     type: string;
