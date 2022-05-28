@@ -14,7 +14,7 @@ type UserDateType = {
 };
 
 type AuthDataType = {
-    [key: string]: string;
+    [key: string]: string | null;
 };
 
 interface UserState {
@@ -26,7 +26,7 @@ interface UserState {
     dataLoaded: boolean;
 }
 
-const initialData: UserState = localStorageService.getAccessToken()
+const initialState: UserState = localStorageService.getAccessToken()
     ? {
           entities: null,
           isLoading: true,
@@ -45,8 +45,8 @@ const initialData: UserState = localStorageService.getAccessToken()
       };
 
 const userSlice = createSlice({
-    name: "users",
-    initialData,
+    name: "user",
+    initialState,
     reducers: {
         authRequestSuccess: (state, action: PayloadAction<AuthDataType>) => {
             state.auth = action.payload;
@@ -55,15 +55,18 @@ const userSlice = createSlice({
         authRequested: (state) => {
             state.error = null;
         },
+        userRequested: (state) => {
+            state.isLoading = true;
+        },
         authRequestFailed: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
-        usersRecieved: (state, action: PayloadAction<UserDateType>) => {
+        userRecieved: (state, action: PayloadAction<UserDateType>) => {
             state.entities = action.payload;
             state.isLoading = false;
             state.dataLoaded = true;
         },
-        usersRequestFailed: (state, action: PayloadAction<string>) => {
+        userRequestFailed: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
             state.isLoading = false;
         },
@@ -76,23 +79,27 @@ const userSlice = createSlice({
         userUpdated: (state, action: PayloadAction<UserDateType>) => {
             state.entities = action.payload;
         },
+        userUpdateFailed: (state, action: PayloadAction<string>) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
     },
 });
 
-const { reducer: usersReducer, actions } = userSlice;
+const { reducer: userReducer, actions } = userSlice;
 const {
-    usersRequested,
-    usersRecieved,
-    usersRequestFailed,
+    userRequested,
+    userRecieved,
+    userRequestFailed,
     authRequestSuccess,
     authRequestFailed,
     userLoggedOut,
     userUpdated,
+    userUpdateFailed,
 } = actions;
 
-const authRequested = createAction("users/authRequested");
-const userUpdateRequested = createAction("users/userUpdateRequested");
-const userUpdateFailed = createAction("users/userUpdateFailed");
+const authRequested = createAction("user/authRequested");
+const userUpdateRequested = createAction("user/userUpdateRequested");
 
 export const signUp = (payload: any) => async (dispatch: Dispatch) => {
     dispatch(authRequested());
@@ -102,7 +109,7 @@ export const signUp = (payload: any) => async (dispatch: Dispatch) => {
         dispatch(authRequestSuccess({ userId: data.userId }));
         // history.push("/");
         const user = await userService.get();
-        dispatch(usersRecieved(user));
+        dispatch(userRecieved(user));
     } catch (error: any) {
         const { code, message } = error.response.data.error;
         if (code === 400) {
@@ -132,7 +139,7 @@ export const logIn =
             dispatch(authRequestSuccess({ userId: data.userId }));
             //   history.push(redirect);
             const user = await userService.get();
-            dispatch(usersRecieved(user));
+            dispatch(userRecieved(user));
         } catch (error: any) {
             const { code, message } = error.response.data.error;
             if (code === 400) {
@@ -148,12 +155,13 @@ export const deleteUser = () => async (dispatch: Dispatch) => {
     try {
         const user = await userService.delete();
         if (user._id === localStorageService.getUserId()) {
-            dispatch(logOut());
+            localStorageService.removeAuthData();
+            dispatch(userLoggedOut());
         } else {
             console.error("Something was wrong");
         }
     } catch (error: any) {
-        dispatch(usersRequestFailed(error.message));
+        dispatch(userRequestFailed(error.message));
     }
 };
 
@@ -164,12 +172,12 @@ export const logOut = () => (dispatch: Dispatch) => {
 };
 
 export const loadUser = () => async (dispatch: Dispatch) => {
-    dispatch(usersRequested());
+    dispatch(userRequested());
     try {
         const user = await userService.get();
-        dispatch(usersRecieved(user));
+        dispatch(userRecieved(user));
     } catch (error: any) {
-        dispatch(usersRequestFailed(error.message));
+        dispatch(userRequestFailed(error.message));
     }
 };
 
@@ -184,4 +192,4 @@ export const updateUser = (payload: any) => async (dispatch: Dispatch) => {
     }
 };
 
-export default usersReducer;
+export default userReducer;

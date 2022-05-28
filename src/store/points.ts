@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import pointsService from "../services/pointService";
 
 type PointDateType = {
     type: string;
@@ -18,6 +19,7 @@ type PointState = {
     entities: PointDateType[];
     isLoading: boolean;
     dataLoaded: boolean;
+    error: string | null;
 };
 
 const initialState: PointState = {
@@ -52,6 +54,7 @@ const initialState: PointState = {
     ],
     isLoading: false,
     dataLoaded: false,
+    error: null,
 };
 
 const pointsSlice = createSlice({
@@ -66,10 +69,24 @@ const pointsSlice = createSlice({
             state.isLoading = false;
             state.dataLoaded = true;
         },
+        pointRequestFailed: (state, action: PayloadAction<string>) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
     },
 });
 
 const { reducer: pointsReducer, actions } = pointsSlice;
-const { pointsRequested, pointsRecieved } = actions;
+const { pointsRequested, pointsRecieved, pointRequestFailed } = actions;
+
+export const loadPoints = () => async (dispatch: Dispatch) => {
+    dispatch(pointsRequested());
+    try {
+        const { content } = await pointsService.get();
+        dispatch(pointsRecieved(content));
+    } catch (error: any) {
+        dispatch(pointRequestFailed(error.message));
+    }
+};
 
 export default pointsReducer;
