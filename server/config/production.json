@@ -1,0 +1,6 @@
+{
+    "port": 8080,
+    "mongoUri": "none",
+    "accessSecret": "some key word",
+    "refreshSecret": "another key word"
+}
