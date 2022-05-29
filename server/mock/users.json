@@ -1,14 +1,16 @@
 [
     {
-        "name": "John",
+        "firstname": "first",
+        "lastname": "alt",
         "email": "a@mail.ru",
         "password": "123456789",
-        "points": ["6244afe1906e2fadfec0759e", "6244afe1906e2fadfec0759f"]
+        "points": ["6293c98a0fd9006e0d6200aa", "6293c98a0fd9006e0d6200a9"]
     },
     {
-        "name": "Luke",
+        "firstname": "second",
+        "lastname": "fam",
         "email": "b@mail.ru",
         "password": "123456789",
-        "points": ["6244afe1906e2fadfec0759e", "6244afe1906e2fadfec075a1"]
+        "points": ["6244afe1906e2fadfec0759e"]
     }
 ]

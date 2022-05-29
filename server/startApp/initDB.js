@@ -1,12 +1,12 @@
-const Points = require("../models/Points");
-const pointsMock = require("../mock/points.json");
+const User = require("../models/User");
+const userMock = require("../mock/users.json");
 
 module.exports = async () => {
-    const points = await Points.find();
-    console.log("POINTS ", points);
+    const user = await User.find();
+    console.log("USER ", user);
 
-    if (points.length !== pointsMock.length) {
-        await createInitEntity(Points, pointsMock);
+    if (user.length !== userMock.length) {
+        await createInitEntity(User, userMock);
     }
 };
 
@@ -15,7 +15,6 @@ async function createInitEntity(Model, data) {
     return Promise.all(
         data.map(async (item) => {
             try {
-                console.log(item);
                 const newItem = new Model(item);
                 console.log(newItem);
                 await newItem.save();

@@ -8,9 +8,9 @@ const userSchema = new Schema([
         password: { type: String },
         points: [{ type: Schema.Types.ObjectId, ref: "Points" }],
     },
-    {
-        timestamps: true,
-    },
+    // {
+    //     timestamps: true,
+    // },
 ]);
 
 module.exports = model("User", userSchema);
