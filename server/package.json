@@ -15,11 +15,13 @@
     "author": "Leo Lichkun (Canoist)",
     "license": "ISC",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "chalk": "^4.1.2",
         "config": "^3.3.7",
         "cors": "^2.8.5",
         "D": "^1.0.0",
         "express": "^4.18.1",
+        "express-validator": "^6.14.1",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.3.4"
     },

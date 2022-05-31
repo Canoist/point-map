@@ -7,22 +7,14 @@ const path = require("path");
 const initDB = require("./startApp/initDB");
 
 const app = express();
-// const router = require("./routes");
+const router = require("./routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use("/api", router);
 
 const PORT = config.get("port") ?? 8080;
-
-// if (process.env.NODE_ENV === "production") {
-//     app.use("/", express.static(path.join(__dirname, "client")));
-
-//     const indexPath = path.join(__dirname, "client", "index.html");
-//     app.get("*", (req:any, res) => {
-//         res.sendFile(indexPath);
-//     });
-// }
 
 async function start() {
     try {
