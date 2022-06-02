@@ -1,10 +1,9 @@
-import { Box } from "@mui/material";
+import { AppBar, Container, Toolbar } from "@mui/material";
 import React, { useState } from "react";
-import Map from "../pages/map";
-import PointAdd from "../pages/pointAdd";
-import PointList from "../pages/pointList";
-import TabPanel from "./tabPanel";
-import TabsBox from "./tabsBox";
+import { useAppSelector } from "../store/hooks";
+import { getIsLoggedIn } from "../store/user";
+import NavBarDesktop from "./navBarDesktop";
+import NavBarMobile from "./navBarMobile";
 
 interface NavBarProps {
   points: any;
@@ -12,34 +11,38 @@ interface NavBarProps {
   onDelete: any;
 }
 
-const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
-  const [value, setValue] = useState(0);
-  const { points, onSubmit, onDelete } = props;
+const NavBar: React.FC<NavBarProps> = () => {
 
+const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const isLoggedIn = useAppSelector((getIsLoggedIn()));
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+    const tabs = isLoggedIn ? ["Main", "Favorites"] : ["Main"];
+    // const settings = ["Profile", "Logout"];
 
-  return (
-    <Box sx={{ width: "100%" }}>
-      <TabsBox value={value} onChange={handleChange} />
-      <TabPanel value={value} index={0}>
-        <span>
-          <Map points={points} />
-        </span>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <span>
-          <PointAdd onSubmit={onSubmit} toMap={handleChange} />
-        </span>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <span>
-          <PointList points={points} onDelete={onDelete} />
-        </span>
-      </TabPanel>
-    </Box>
-  );
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>)=> {
+        setAnchorElNav(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = ()=> {
+        setAnchorElNav(null);
+    };
+
+    return (
+        <AppBar position="static" sx={{ mb: "18px", px: "15px" }}>
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <NavBarDesktop
+                        onClickOpen={handleOpenNavMenu}
+                    />
+                    <NavBarMobile
+                        tabs={tabs}
+                        onClickClose={handleCloseNavMenu}
+                        anchor={anchorElNav}
+                    />
+                    {/* <NavBarUserInfo settings={settings} /> */}
+                </Toolbar>
+            </Container>
+        </AppBar>
+    );
 };
 export default NavBar;
