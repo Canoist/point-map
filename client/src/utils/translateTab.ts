@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export function translateTab(name:string):ReactNode {
+export function translateTab(name: string): ReactNode {
     switch (name) {
         case "Main":
             return "Map";
@@ -10,7 +10,8 @@ export function translateTab(name:string):ReactNode {
             return "Профиль";
         case "Logout":
             return "Выйти";
-
+        case "Login":
+            return "Войти";
         default:
             break;
     }

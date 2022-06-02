@@ -33,35 +33,35 @@ import NavBar from "./components/navBar";
 // ];
 
 const App: React.FC = (): JSX.Element => {
-//   const [pointList, setPointList] = useState<any>(initialData);
+    //   const [pointList, setPointList] = useState<any>(initialData);
 
-//   const handleSubmit = (incomingData: any) => {
-//     setPointList((prev: any) => [...prev, incomingData]);
-//     console.log(incomingData);
-//   };
+    //   const handleSubmit = (incomingData: any) => {
+    //     setPointList((prev: any) => [...prev, incomingData]);
+    //     console.log(incomingData);
+    //   };
 
-//   const handleDelete = (id: any) => {
-//     const newList: any = pointList.filter(
-//       (item: any) => item.properties.ID !== id
-//     );
-//     setPointList(newList);
-//   };
+    //   const handleDelete = (id: any) => {
+    //     const newList: any = pointList.filter(
+    //       (item: any) => item.properties.ID !== id
+    //     );
+    //     setPointList(newList);
+    //   };
 
-  return (
-    <>
-      <Routes>
-        <Route
-          path="*"
-          element={
-              <NavBar/>
-            //   points={pointList}
-            //   onSubmit={handleSubmit}
-            //   onDelete={handleDelete}
-          }
-        />
-      </Routes>
-    </>
-  );
+    return (
+        <>
+            <Routes>
+                <Route
+                    path="*"
+                    element={
+                        <NavBar />
+                        //   points={pointList}
+                        //   onSubmit={handleSubmit}
+                        //   onDelete={handleDelete}
+                    }
+                />
+            </Routes>
+        </>
+    );
 };
 
 export default App;

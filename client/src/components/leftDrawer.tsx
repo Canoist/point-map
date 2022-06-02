@@ -3,12 +3,16 @@ import { Divider, Drawer, List, ListItemText } from "@mui/material";
 import NavBarButton from "./navBarButton";
 
 interface ILeftDrawer {
-    isOpenedDrawer: boolean,
-    closeDrawer: React.MouseEventHandler,
-    tabs: string[] 
+    isOpenedDrawer: boolean;
+    closeDrawer: React.MouseEventHandler;
+    tabs: string[];
 }
 
-const LeftDrawer:React.FC<ILeftDrawer> = ({ isOpenedDrawer, closeDrawer, tabs }) => {
+const LeftDrawer: React.FC<ILeftDrawer> = ({
+    isOpenedDrawer,
+    closeDrawer,
+    tabs,
+}) => {
     return (
         <Drawer
             id="menu-appbar"
@@ -16,11 +20,10 @@ const LeftDrawer:React.FC<ILeftDrawer> = ({ isOpenedDrawer, closeDrawer, tabs })
             open={isOpenedDrawer}
             PaperProps={{
                 elevation: 3,
-                sx: { bgcolor: "primary.main" }
+                sx: { bgcolor: "primary.main" },
             }}
             sx={{ display: { md: "none" } }}
-            onClose={closeDrawer}
-        >
+            onClose={closeDrawer}>
             <List sx={{ width: { xs: "120px", sm: "180px" } }}>
                 {tabs.map((tab, index) => (
                     <ListItemText key={tab}>

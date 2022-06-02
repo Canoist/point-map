@@ -10,7 +10,8 @@ import userService from "../services/userService";
 import { generateAuthError } from "../utils/generateAuthError";
 
 type UserDateType = {
-    name: string;
+    firstname: string;
+    lastname: string;
 };
 
 type AuthDataType = {
@@ -192,11 +193,17 @@ export const updateUser = (payload: any) => async (dispatch: Dispatch) => {
     }
 };
 
-
-export const getUsersLoadingStatus = () => (state: { users: UserState }) => state.users.isLoading;
-export const getIsLoggedIn = () => (state: { users: UserState }) => state.users.isLoggedIn;
-export const getDataStatus = () => (state: { users: UserState }) => state.users.dataLoaded;
-export const getCurrentUserId = () => (state: { users: UserState }) => state.users.auth!.userId;
-export const getAuthErrors = () => (state: { users: UserState }) => state.users.error;
+export const getUserData = () => (state: { users: UserState }) =>
+    state.users.entities;
+export const getUsersLoadingStatus = () => (state: { users: UserState }) =>
+    state.users.isLoading;
+export const getIsLoggedIn = () => (state: { users: UserState }) =>
+    state.users.isLoggedIn;
+export const getDataStatus = () => (state: { users: UserState }) =>
+    state.users.dataLoaded;
+export const getCurrentUserId = () => (state: { users: UserState }) =>
+    state.users.auth!.userId;
+export const getAuthErrors = () => (state: { users: UserState }) =>
+    state.users.error;
 
 export default userReducer;
