@@ -21,7 +21,7 @@ const NavBarMobile:React.FC<INavBarMobile> = ({ tabs, onClickClose, anchor }) =>
                     display: { xs: "flex", md: "none" }
                 }}
             >
-                Weather Forecast
+                Basket Point
             </Typography>
             <Box
                 sx={{

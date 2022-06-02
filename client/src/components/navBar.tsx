@@ -5,13 +5,9 @@ import { getIsLoggedIn } from "../store/user";
 import NavBarDesktop from "./navBarDesktop";
 import NavBarMobile from "./navBarMobile";
 
-interface NavBarProps {
-  points: any;
-  onSubmit: any;
-  onDelete: any;
-}
 
-const NavBar: React.FC<NavBarProps> = () => {
+
+const NavBar: React.FC = () => {
 
 const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const isLoggedIn = useAppSelector((getIsLoggedIn()));

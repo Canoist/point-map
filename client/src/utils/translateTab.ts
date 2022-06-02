@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export function translateTab(name:string):ReactNode {
     switch (name) {
         case "Main":
-            return "Поиск";
+            return "Map";
         case "Favorites":
             return "Избранное";
         case "Profile":

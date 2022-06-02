@@ -15,7 +15,7 @@ const NavBarDesktop:React.FC<INavBarDesktop> = ({onClickOpen}) => {
                 component="div"
                 sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-                Weather Forecast
+                Basket Point
             </Typography>
             <Box
                 sx={{
