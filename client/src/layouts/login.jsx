@@ -1,21 +1,16 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import SignInForm from "../components/ui/signInForm";
-import RegisterForm from "../components/ui/registerForm";
-import { useDispatch } from "react-redux";
-import { resetAuthErrors } from "../store/users";
+import React from "react";
 
 const Login = () => {
-    const { type } = useParams();
-    const dispatch = useDispatch();
-    const [formType, setFormType] = useState(
-        type === "register" ? type : "login"
-    );
-    const toggleFormType = () => {
-        setFormType((prev) => (prev === "register" ? "login" : "register"));
-        dispatch(resetAuthErrors());
-    };
+    // const { type } = useParams();
+    // const dispatch = useDispatch();
+    // const [formType, setFormType] = useState(
+    //     type === "register" ? type : "login"
+    // );
+    // const toggleFormType = () => {
+    //     setFormType((prev) => (prev === "register" ? "login" : "register"));
+    //     dispatch(resetAuthErrors());
+    // };
 
     return (
         <Box
@@ -26,11 +21,11 @@ const Login = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 "&::-webkit-scrollbar": {
-                    width: "18px"
-                }
-            }}
-        >
-            {formType === "register" ? (
+                    width: "18px",
+                },
+            }}>
+            <h1>Login Page</h1>
+            {/* {formType === "register" ? (
                 <>
                     <Box sx={{ pb: { xs: "100px", md: "70px" } }}>
                         <RegisterForm toggleForm={toggleFormType} />
@@ -40,7 +35,7 @@ const Login = () => {
                 <>
                     <SignInForm toggleForm={toggleFormType} />
                 </>
-            )}
+            )} */}
         </Box>
     );
 };
