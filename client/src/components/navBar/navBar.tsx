@@ -1,7 +1,7 @@
 import { AppBar, Container, Toolbar } from "@mui/material";
 import React, { useState } from "react";
-import { useAppSelector } from "../store/hooks";
-import { getIsLoggedIn } from "../store/user";
+import { useAppSelector } from "../../store/hooks";
+import { getIsLoggedIn } from "../../store/user";
 import NavBarDesktop from "./navBarDesktop";
 import NavBarMobile from "./navBarMobile";
 import NavBarUserInfo from "./navBarUserInfo";

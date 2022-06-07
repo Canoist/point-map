@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Avatar, Box, Divider, IconButton, Menu, Tooltip } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import NavBarMenuItem from "./navBarMenuItem";
-import { useAppSelector } from "../store/hooks";
-import { getDataStatus, getUserData } from "../store/user";
 import NavBarButton from "./navBarButton";
+import { useAppSelector } from "../../store/hooks";
+import { getDataStatus, getUserData } from "../../store/user";
 
 interface INavBarUserInfo {
     settings: string[];

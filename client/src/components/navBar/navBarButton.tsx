@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import Styles from "../types/styles";
-import { translateTab } from "../utils/translateTab";
+import Styles from "../../types/styles";
+import { translateTab } from "../../utils/translateTab";
 
 interface INavBarButton {
     page: string;
