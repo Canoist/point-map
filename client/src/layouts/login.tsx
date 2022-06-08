@@ -16,7 +16,6 @@ const Login = () => {
         setFormType((prev) => (prev === "register" ? "login" : "register"));
         dispatch(resetAuthErrors());
     };
-    console.log(formType);
 
     return (
         <Box
