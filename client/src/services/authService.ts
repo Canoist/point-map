@@ -7,7 +7,7 @@ const httpAuth = axios.create({
     params: { key: process.env.REACT_APP_FIREBASE_KEY },
 });
 
-export interface IEmailAndPassword {
+export interface IString {
     [key: string]: string;
 }
 
@@ -16,7 +16,7 @@ const authService = {
         const { data } = await httpAuth.post("signUp", payload);
         return data;
     },
-    login: async ({ email, password }: IEmailAndPassword) => {
+    login: async ({ email, password }: IString) => {
         const { data } = await httpAuth.post("signInWithPassword", {
             email,
             password,

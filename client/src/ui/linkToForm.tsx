@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import { Link } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 
 interface ILinkToForm {
     forSignIn: Boolean;
@@ -8,11 +8,13 @@ interface ILinkToForm {
 
 const LinkToForm: React.FC<ILinkToForm> = ({ forSignIn, toggleForm }) => {
     return (
-        <p
+        <Typography
+            align="center"
             style={{
                 fontWeight: "normal",
                 color: "#23252E",
-            }}>
+            }}
+            component="p">
             {forSignIn ? "Еще не с нами?" : "Уже есть аккаунт?"}{" "}
             <Link
                 variant="button"
@@ -26,7 +28,7 @@ const LinkToForm: React.FC<ILinkToForm> = ({ forSignIn, toggleForm }) => {
                 {" "}
                 {forSignIn ? "Присоединиться" : "Войти"}
             </Link>
-        </p>
+        </Typography>
     );
 };
 

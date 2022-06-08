@@ -4,9 +4,10 @@ import {
     Dispatch,
     PayloadAction,
 } from "@reduxjs/toolkit";
-import authService, { IEmailAndPassword } from "../services/authService";
+import authService from "../services/authService";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
+import { FiledValues } from "../ui/signInForm";
 import { generateAuthError } from "../utils/generateAuthError";
 import history from "../utils/history";
 
@@ -124,7 +125,7 @@ export const signUp = (payload: any) => async (dispatch: Dispatch) => {
 };
 
 type LoginType = {
-    payload: IEmailAndPassword;
+    payload: FiledValues;
 };
 
 export const logIn =
@@ -206,5 +207,7 @@ export const getCurrentUserId = () => (state: { users: UserState }) =>
     state.users.auth!.userId;
 export const getAuthErrors = () => (state: { users: UserState }) =>
     state.users.error;
+export const resetAuthErrors = () => (dispatch: Dispatch) =>
+    dispatch(authRequested());
 
 export default userReducer;
