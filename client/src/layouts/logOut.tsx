@@ -1,14 +1,14 @@
 import { CircularProgress } from "@mui/material";
-import React from "react";
-// import { useAppDispatch } from "../store/hooks";
-// import { logOut } from "../store/user";
+import React, { useEffect } from "react";
+import { useAppDispatch } from "../store/hooks";
+import { logOut } from "../store/user";
 
 const LogOut: React.FC = () => {
-    // const dispatch = useAppDispatch;
+    const dispatch = useAppDispatch();
 
-    // useEffect(() => {
-    //     dispatch(logOut());
-    // }, [dispatch]);
+    useEffect(() => {
+        dispatch(logOut());
+    }, [dispatch]);
 
     return <CircularProgress />;
 };

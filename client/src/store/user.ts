@@ -8,6 +8,7 @@ import authService, { IEmailAndPassword } from "../services/authService";
 import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
 import { generateAuthError } from "../utils/generateAuthError";
+import history from "../utils/history";
 
 type UserDateType = {
     firstname: string;
@@ -108,7 +109,7 @@ export const signUp = (payload: any) => async (dispatch: Dispatch) => {
         const data = await authService.register(payload);
         localStorageService.setTokens(data);
         dispatch(authRequestSuccess({ userId: data.userId }));
-        // history.push("/");
+        history.push("/");
         const user = await userService.get();
         dispatch(userRecieved(user));
     } catch (error: any) {
@@ -169,7 +170,7 @@ export const deleteUser = () => async (dispatch: Dispatch) => {
 export const logOut = () => (dispatch: Dispatch) => {
     localStorageService.removeAuthData();
     dispatch(userLoggedOut());
-    //   history.push("/");
+    history.push("/");
 };
 
 export const loadUser = () => async (dispatch: Dispatch) => {
@@ -187,7 +188,7 @@ export const updateUser = (payload: any) => async (dispatch: Dispatch) => {
     try {
         const data = await userService.patch(payload);
         dispatch(userUpdated(data));
-        // history.push("/");
+        history.push("/");
     } catch (error: any) {
         dispatch(userUpdateFailed(error.message));
     }
