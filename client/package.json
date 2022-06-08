@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@types/leaflet": "^1.7.10"
+    "@types/leaflet": "^1.7.10",
+    "react-hook-form": "^7.31.3"
   }
 }
