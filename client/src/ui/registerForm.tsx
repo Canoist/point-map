@@ -39,7 +39,8 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     };
 
     const onSubmit = (data: any) => {
-        console.log(data);
+        const newData = { ...data, points: [] };
+        console.log(newData);
         // dispatch(signUp(data));
     };
     return (

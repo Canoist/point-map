@@ -126,13 +126,11 @@ export const signUp = (payload: any) => async (dispatch: Dispatch) => {
 
 type LoginType = {
     payload: FiledValues;
+    redirect?: any;
 };
 
 export const logIn =
-    ({
-        payload,
-    }: // redirect
-    LoginType) =>
+    ({ payload, redirect }: LoginType) =>
     async (dispatch: Dispatch) => {
         const { email, password } = payload;
         dispatch(authRequested());
@@ -140,7 +138,7 @@ export const logIn =
             const data = await authService.login({ email, password });
             localStorageService.setTokens(data);
             dispatch(authRequestSuccess({ userId: data.userId }));
-            //   history.push(redirect);
+            history.push(redirect);
             const user = await userService.get();
             dispatch(userRecieved(user));
         } catch (error: any) {
