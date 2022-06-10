@@ -1,10 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-const geoSchema = new Schema({
-    type: String,
-    coordinates: [{ type: Number }],
-});
-
 const pointsSchema = new Schema([
     {
         type: { type: String },
