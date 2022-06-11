@@ -1,13 +1,7 @@
 import React from "react";
 import PointListPage from "../pages/pointListPage";
-import IPoint from "../types/IPoint";
 
-interface IOwnPoints {
-    points: IPoint[] | [];
-    onDelete: any;
-}
-
-const OwnPoints: React.FC<IOwnPoints> = ({ onDelete, points }) => {
+const OwnPoints: React.FC= () => {
     // const [pointList, setPointList] = useState<IPoint[] | []>(points);
 
     // const handleDelete = (id: string) => {
@@ -18,6 +12,6 @@ const OwnPoints: React.FC<IOwnPoints> = ({ onDelete, points }) => {
     //     );
     //     setPointList(newList);
     // };
-    return <PointListPage points={points} onDelete={onDelete} />;
+    return <PointListPage />;
 };
 export default OwnPoints;

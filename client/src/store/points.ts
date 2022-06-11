@@ -67,6 +67,8 @@ const pointsUpdateRequested = createAction("user/pointsUpdateRequested");
 
 export const loadPoints = () => async (dispatch: Dispatch) => {
     dispatch(pointsRequested());
+    console.log("start");
+
     try {
         const { content } = await pointsService.get();
         dispatch(pointsRecieved(content));
@@ -98,11 +100,13 @@ export const updateOnePoint =
     };
 
 export const removePoint = (id: string) => async (dispatch: Dispatch) => {
+    console.log(id);
+
     try {
-        const { content } = await pointsService.removePoint(id);
-        if (content === null) {
-            dispatch(pointDeleted(id));
-        }
+        // const { content } = await pointsService.removePoint(id);
+        // if (content === null) {
+        dispatch(pointDeleted(id));
+        // }
     } catch (error: any) {
         dispatch(pointsRequestFailed(error.message));
     }

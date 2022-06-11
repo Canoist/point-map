@@ -10,13 +10,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RoomIcon from "@mui/icons-material/Room";
 import React from "react";
 import PointProperties from "../../types/pointProperties";
+import { useAppDispatch } from "../../store/hooks";
+import { removePoint } from "../../store/points";
 
 export interface IPointList {
     pointProperties: PointProperties;
-    onDelete: any;
 }
 
-const PointList: React.FC<IPointList> = ({ pointProperties, onDelete }) => {
+const PointList: React.FC<IPointList> = ({ pointProperties }) => {
+    const dispatch = useAppDispatch();
+
+    const onDelete = (id: string) => {
+        dispatch(removePoint(id));
+    };
+
     return (
         <List>
             <ListItem
