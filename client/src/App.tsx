@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/navBar/navBar";
-import Favorites from "./layouts/favorites";
 import Login from "./layouts/login";
 import Main from "./layouts/main";
+import OwnPoints from "./layouts/ownPoints";
 
 // const initialData: any = [
 //   {
@@ -54,7 +54,7 @@ const App: React.FC = (): JSX.Element => {
         <>
             <NavBar />
             <Routes>
-                <Route path="favorites" element={<Favorites />} />
+                <Route path="ownPoints" element={<OwnPoints />} />
                 <Route path="login" element={<Login />} />
                 <Route
                     path="*"

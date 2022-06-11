@@ -6,8 +6,7 @@ interface MapProps {
     points?: any;
 }
 
-const Map: React.FC<MapProps> = (props: MapProps) => {
-    const { points } = props;
+const Map: React.FC<MapProps> = ({ points }) => {
     const [activeLoaction, setActiveLoaction] = useState<any | null>(null);
 
     return (

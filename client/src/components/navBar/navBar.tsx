@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const isLoggedIn = useAppSelector(getIsLoggedIn());
 
-    const tabs = isLoggedIn ? ["Main", "Favorites"] : ["Main"];
+    const tabs = isLoggedIn ? ["Main", "OwnPoints"] : ["Main"];
     const settings = ["Profile", "Logout"];
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

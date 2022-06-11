@@ -4,8 +4,8 @@ export function translateTab(name: string): ReactNode {
     switch (name) {
         case "Main":
             return "Map";
-        case "Favorites":
-            return "Избранное";
+        case "OwnPoints":
+            return "Мои площадки";
         case "Profile":
             return "Профиль";
         case "Logout":
