@@ -1,23 +1,25 @@
 import React, { useState } from "react";
-import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { MapContainer } from "react-leaflet";
 import IPoint from "../types/IPoint";
 import MapPopup from "../components/mapComponents/mapPopup";
+import MapMarker from "../components/mapComponents/mapMarker";
+import MapLayer from "../components/mapComponents/mapLayer";
 
 interface MapProps {
     points?: any;
 }
 
-function MyComponent() {
-    const map = useMapEvents({
-        click: () => {
-            map.locate();
-        },
-        locationfound: (location: any) => {
-            console.log("location found:", location);
-        },
-    });
-    return null;
-}
+// function MyComponent() {
+//     const map = useMapEvents({
+//         click: () => {
+//             map.locate();
+//         },
+//         locationfound: (location: any) => {
+//             console.log("location found:", location);
+//         },
+//     });
+//     return null;
+// }
 
 // function MyComponent() {
 //     const [position, setPosition] = useState<any>(null);
@@ -39,34 +41,21 @@ const Map: React.FC<MapProps> = ({ points }) => {
             center={[60.1986, 30.3141]}
             zoom={8}
             scrollWheelZoom={true}>
-            <MyComponent />
-            <span>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {points &&
-                    points.map((park: IPoint) => (
-                        <Marker
-                            key={park.properties._id}
-                            position={[
-                                park.geometry.coordinates[0],
-                                park.geometry.coordinates[1],
-                            ]}
-                            eventHandlers={{
-                                click: () => {
-                                    setActiveLoaction(park);
-                                },
-                            }}
-                        />
-                    ))}
-                {activeLoaction && (
-                    <MapPopup
+            <MapLayer />
+            {points &&
+                points.map((point: IPoint) => (
+                    <MapMarker
+                        key={point.properties._id}
+                        point={point}
                         setActiveLoaction={setActiveLoaction}
-                        activeLoaction={activeLoaction}
                     />
-                )}
-            </span>
+                ))}
+            {activeLoaction && (
+                <MapPopup
+                    setActiveLoaction={setActiveLoaction}
+                    activeLoaction={activeLoaction}
+                />
+            )}
         </MapContainer>
     );
 };
