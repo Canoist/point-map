@@ -45,6 +45,11 @@ const pointsSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+        pointDeleted: (state, action: PayloadAction<string>) => {
+            state.entities = state.entities.filter(
+                (point) => point.properties._id !== action.payload
+            );
+        },
     },
 });
 
@@ -55,6 +60,7 @@ const {
     pointsRequestFailed,
     pointsUpdated,
     pointsUpdateFailed,
+    pointDeleted,
 } = actions;
 
 const pointsUpdateRequested = createAction("user/pointsUpdateRequested");
@@ -80,14 +86,33 @@ export const updatePoints =
         }
     };
 
-export const updateOnePoint = (payload: IPoint) => async (dispatch: Dispatch) => {
-    dispatch(pointsUpdateRequested());
+export const updateOnePoint =
+    (payload: IPoint) => async (dispatch: Dispatch) => {
+        dispatch(pointsUpdateRequested());
+        try {
+            const data = await pointsService.patchOne(payload);
+            dispatch(pointsUpdated(data));
+        } catch (error: any) {
+            dispatch(pointsUpdateFailed(error.message));
+        }
+    };
+
+export const removePoint = (id: string) => async (dispatch: Dispatch) => {
     try {
-        const data = await pointsService.patchOne(payload);
-        dispatch(pointsUpdated(data));
+        const { content } = await pointsService.removePoint(id);
+        if (content === null) {
+            dispatch(pointDeleted(id));
+        }
     } catch (error: any) {
-        dispatch(pointsUpdateFailed(error.message));
+        dispatch(pointsRequestFailed(error.message));
     }
-}
+};
+
+export const getPoints = () => (state: { points: PointState }) =>
+    state.points.entities;
+export const getPointsLoadingStatus = () => (state: { points: PointState }) =>
+    state.points.isLoading;
+export const getPointsDataStatus = () => (state: { points: PointState }) =>
+    state.points.dataLoaded;
 
 export default pointsReducer;

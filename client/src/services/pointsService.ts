@@ -21,6 +21,10 @@ const pointsService = {
         // Нужно вернуть массив точек
         return data;
     },
+    removePoint: async (id: string) => {
+        const { data } = await httpService.delete(pointsEndPoint + id);
+        return data;
+    },
 };
 
 export default pointsService;
