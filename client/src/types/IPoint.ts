@@ -1,13 +1,13 @@
 export default interface IPoint {
-    type: String;
+    type: string;
     properties: {
-        _id: String;
-        name: String;
-        description: String;
+        _id: string;
+        name: string;
+        description: string;
         date: number;
     };
     geometry: {
-        type: String;
-        coordinates: Number[];
+        type: string;
+        coordinates: number[];
     };
 }

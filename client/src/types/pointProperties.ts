@@ -1,6 +1,6 @@
 export default interface PointProperties {
-    _id: String;
-    name: String;
-    description: String;
-    date: Number;
+    _id: string;
+    name: string;
+    description: string;
+    date: number;
 }

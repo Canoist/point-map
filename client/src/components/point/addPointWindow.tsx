@@ -1,12 +1,12 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-interface PointAddPageProps {
+interface IAddPointWindow {
     onSubmit: any;
     toMap: any;
 }
 
-const PointAddPage: React.FC<PointAddPageProps> = ({ onSubmit, toMap }) => {
+const AddPointWindow: React.FC<IAddPointWindow> = ({ onSubmit, toMap }) => {
     const [data, setData] = useState<any>(null);
 
     const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -104,4 +104,4 @@ const PointAddPage: React.FC<PointAddPageProps> = ({ onSubmit, toMap }) => {
         </Box>
     );
 };
-export default PointAddPage;
+export default AddPointWindow;
