@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import moment from "moment";
+import IPoint from "../types/IPoint";
+import points from "../mock/points";
 
 interface MapProps {
-    points?: any;
+    pointss?: any;
 }
 
-const Map: React.FC<MapProps> = ({ points }) => {
+const Map: React.FC<MapProps> = ({ pointss }) => {
     const [activeLoaction, setActiveLoaction] = useState<any | null>(null);
 
     return (
@@ -20,25 +22,20 @@ const Map: React.FC<MapProps> = ({ points }) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {points &&
-                    points.map(
-                        (park: {
-                            properties: { ID: string };
-                            geometry: { coordinates: number[] };
-                        }) => (
-                            <Marker
-                                key={park.properties.ID}
-                                position={[
-                                    park.geometry.coordinates[0],
-                                    park.geometry.coordinates[1],
-                                ]}
-                                eventHandlers={{
-                                    click: () => {
-                                        setActiveLoaction(park);
-                                    },
-                                }}
-                            />
-                        )
-                    )}
+                    points.map((park: IPoint) => (
+                        <Marker
+                            key={park.properties._id}
+                            position={[
+                                park.geometry.coordinates[0],
+                                park.geometry.coordinates[1],
+                            ]}
+                            eventHandlers={{
+                                click: () => {
+                                    setActiveLoaction(park);
+                                },
+                            }}
+                        />
+                    ))}
                 {activeLoaction && (
                     <Popup
                         position={[
