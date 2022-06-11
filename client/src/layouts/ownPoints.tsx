@@ -1,19 +1,23 @@
-import React, { useState } from "react";
-import points from "../mock/points";
+import React from "react";
 import PointListPage from "../pages/pointListPage";
 import IPoint from "../types/IPoint";
 
-const OwnPoints: React.FC = () => {
-    const [pointList, setPointList] = useState<IPoint[] | []>(points);
+interface IOwnPoints {
+    points: IPoint[] | [];
+    onDelete: any;
+}
 
-    const handleDelete = (id: string) => {
-        console.log(id);
+const OwnPoints: React.FC<IOwnPoints> = ({ onDelete, points }) => {
+    // const [pointList, setPointList] = useState<IPoint[] | []>(points);
 
-        const newList: IPoint[] = pointList.filter(
-            (item: IPoint) => item.properties._id !== id
-        );
-        setPointList(newList);
-    };
-    return <PointListPage points={pointList} onDelete={handleDelete} />;
+    // const handleDelete = (id: string) => {
+    //     console.log(id);
+
+    //     const newList: IPoint[] = pointList.filter(
+    //         (item: IPoint) => item.properties._id !== id
+    //     );
+    //     setPointList(newList);
+    // };
+    return <PointListPage points={points} onDelete={onDelete} />;
 };
 export default OwnPoints;

@@ -1,21 +1,45 @@
 import React, { useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import moment from "moment";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import IPoint from "../types/IPoint";
-import points from "../mock/points";
+import MapPopup from "../components/mapComponents/mapPopup";
 
 interface MapProps {
-    pointss?: any;
+    points?: any;
 }
 
-const Map: React.FC<MapProps> = ({ pointss }) => {
-    const [activeLoaction, setActiveLoaction] = useState<any | null>(null);
+function MyComponent() {
+    const map = useMapEvents({
+        click: () => {
+            map.locate();
+        },
+        locationfound: (location: any) => {
+            console.log("location found:", location);
+        },
+    });
+    return null;
+}
+
+// function MyComponent() {
+//     const [position, setPosition] = useState<any>(null);
+//     const map = useMapEvents({
+//         click() {
+//             map.locate();
+//         },
+//         locationfound(e:any) {
+//             setPosition(e.latlng);
+//             map.flyTo(e.latlng, map.getZoom());
+//         },
+//     });
+
+const Map: React.FC<MapProps> = ({ points }) => {
+    const [activeLoaction, setActiveLoaction] = useState<IPoint | null>(null);
 
     return (
         <MapContainer
             center={[60.1986, 30.3141]}
             zoom={8}
             scrollWheelZoom={true}>
+            <MyComponent />
             <span>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -37,26 +61,10 @@ const Map: React.FC<MapProps> = ({ pointss }) => {
                         />
                     ))}
                 {activeLoaction && (
-                    <Popup
-                        position={[
-                            activeLoaction.geometry.coordinates[0],
-                            activeLoaction.geometry.coordinates[1],
-                        ]}
-                        eventHandlers={{
-                            click: () => {
-                                setActiveLoaction(null);
-                            },
-                        }}>
-                        <div>
-                            <p>
-                                {moment(activeLoaction.properties.date).format(
-                                    "DD.MM.YY HH:mm"
-                                )}
-                            </p>
-                            <h2>{activeLoaction.properties.NAME}</h2>
-                            <p>{activeLoaction.properties.DESCRIPTIO}</p>
-                        </div>
-                    </Popup>
+                    <MapPopup
+                        setActiveLoaction={setActiveLoaction}
+                        activeLoaction={activeLoaction}
+                    />
                 )}
             </span>
         </MapContainer>

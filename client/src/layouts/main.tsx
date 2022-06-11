@@ -1,7 +1,10 @@
 import React from "react";
 import Map from "../pages/map";
 
-const Main: React.FC = () => {
-    return <Map />;
+interface MapProps {
+    points?: any;
+}
+const Main: React.FC<MapProps> = ({ points }) => {
+    return <Map points={points} />;
 };
 export default Main;
