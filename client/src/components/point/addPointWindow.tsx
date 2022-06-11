@@ -20,9 +20,8 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({ onSubmit, toMap }) => {
         return {
             type: "Feature",
             properties: {
-                ID: data.lon + data.lat,
-                NAME: data.NAME,
-                DESCRIPTIO: data.DESCRIPTIO,
+                name: data.name,
+                description: data.description,
                 date: Date.now(),
             },
             geometry: {
@@ -58,14 +57,14 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({ onSubmit, toMap }) => {
                 Добавить точку на карту
             </Typography>
             <TextField
-                id="NAME"
+                id="name"
                 margin="normal"
                 label="Название точки"
                 variant="filled"
                 onChange={handleChange}
             />
             <TextField
-                id="DESCRIPTIO"
+                id="description"
                 margin="normal"
                 label="Описание точки"
                 variant="filled"

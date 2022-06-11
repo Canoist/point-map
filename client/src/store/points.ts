@@ -1,57 +1,22 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import {
+    createAction,
+    createSlice,
+    Dispatch,
+    PayloadAction,
+} from "@reduxjs/toolkit";
+import points from "../mock/points";
 import pointsService from "../services/pointsService";
-
-type PointDateType = {
-    type: string;
-    properties: {
-        ID: string;
-        NAME: string;
-        DESCRIPTIO: string;
-        date: number;
-    };
-    geometry: {
-        type: string;
-        coordinates: number[];
-    };
-};
+import IPoint from "../types/IPoint";
 
 type PointState = {
-    entities: PointDateType[];
+    entities: IPoint[];
     isLoading: boolean;
     dataLoaded: boolean;
     error: string | null;
 };
 
 const initialState: PointState = {
-    entities: [
-        {
-            type: "Feature",
-            properties: {
-                ID: "60.6788189882135130.00185121217478",
-                NAME: "База рафтинга Кивиниеми",
-                DESCRIPTIO: "Основную часть кода писал здесь",
-                date: 1652247815757,
-            },
-            geometry: {
-                type: "Point",
-                coordinates: [60.67881898821351, 30.00185121217478],
-            },
-        },
-        {
-            type: "Feature",
-            properties: {
-                ID: "60.4475909774236330.28923155946069",
-                NAME: "Фигурное озеро",
-                DESCRIPTIO:
-                    "Был судьей на соревнованиях по рафингу на этом озере 14-15 мая",
-                date: 1652647215757,
-            },
-            geometry: {
-                type: "Point",
-                coordinates: [60.44759097742363, 30.28923155946069],
-            },
-        },
-    ],
+    entities: points,
     isLoading: false,
     dataLoaded: false,
     error: null,
@@ -64,12 +29,19 @@ const pointsSlice = createSlice({
         pointsRequested: (state) => {
             state.isLoading = true;
         },
-        pointsRecieved: (state, action: PayloadAction<PointDateType[]>) => {
+        pointsRecieved: (state, action: PayloadAction<IPoint[]>) => {
             state.entities = action.payload;
             state.isLoading = false;
             state.dataLoaded = true;
         },
-        pointRequestFailed: (state, action: PayloadAction<string>) => {
+        pointsRequestFailed: (state, action: PayloadAction<string>) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
+        pointsUpdated: (state, action: PayloadAction<IPoint[]>) => {
+            state.entities = action.payload;
+        },
+        pointsUpdateFailed: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
             state.isLoading = false;
         },
@@ -77,7 +49,15 @@ const pointsSlice = createSlice({
 });
 
 const { reducer: pointsReducer, actions } = pointsSlice;
-const { pointsRequested, pointsRecieved, pointRequestFailed } = actions;
+const {
+    pointsRequested,
+    pointsRecieved,
+    pointsRequestFailed,
+    pointsUpdated,
+    pointsUpdateFailed,
+} = actions;
+
+const pointsUpdateRequested = createAction("user/pointsUpdateRequested");
 
 export const loadPoints = () => async (dispatch: Dispatch) => {
     dispatch(pointsRequested());
@@ -85,8 +65,29 @@ export const loadPoints = () => async (dispatch: Dispatch) => {
         const { content } = await pointsService.get();
         dispatch(pointsRecieved(content));
     } catch (error: any) {
-        dispatch(pointRequestFailed(error.message));
+        dispatch(pointsRequestFailed(error.message));
     }
 };
+
+export const updatePoints =
+    (payload: IPoint[]) => async (dispatch: Dispatch) => {
+        dispatch(pointsUpdateRequested());
+        try {
+            const data = await pointsService.patch(payload);
+            dispatch(pointsUpdated(data));
+        } catch (error: any) {
+            dispatch(pointsUpdateFailed(error.message));
+        }
+    };
+
+export const updateOnePoint = (payload: IPoint) => async (dispatch: Dispatch) => {
+    dispatch(pointsUpdateRequested());
+    try {
+        const data = await pointsService.patchOne(payload);
+        dispatch(pointsUpdated(data));
+    } catch (error: any) {
+        dispatch(pointsUpdateFailed(error.message));
+    }
+}
 
 export default pointsReducer;
