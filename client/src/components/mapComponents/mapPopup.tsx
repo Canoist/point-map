@@ -1,37 +1,29 @@
-import moment from "moment";
 import React from "react";
 import { Popup } from "react-leaflet";
 import IPoint from "../../types/IPoint";
+import MapCard from "./mapCard";
 
 interface IMapPopup {
-    activeLoaction: IPoint;
-    setActiveLoaction: any;
+    activeLocation: IPoint;
+    setActiveLocation: any;
 }
 
 const MapPopup: React.FC<IMapPopup> = ({
-    activeLoaction,
-    setActiveLoaction,
+    activeLocation,
+    setActiveLocation,
 }) => {
     return (
         <Popup
             position={[
-                activeLoaction.geometry.coordinates[0],
-                activeLoaction.geometry.coordinates[1],
+                activeLocation.geometry.coordinates[0],
+                activeLocation.geometry.coordinates[1],
             ]}
             eventHandlers={{
                 click: () => {
-                    setActiveLoaction(null);
+                    setActiveLocation(null);
                 },
             }}>
-            <div>
-                <p>
-                    {moment(activeLoaction.properties.date).format(
-                        "DD.MM.YY HH:mm"
-                    )}
-                </p>
-                <h2>{activeLoaction.properties.name}</h2>
-                <p>{activeLoaction.properties.description}</p>
-            </div>
+            <MapCard properties={activeLocation.properties} />
         </Popup>
     );
 };
