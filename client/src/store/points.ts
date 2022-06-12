@@ -50,6 +50,9 @@ const pointsSlice = createSlice({
                 (point) => point.properties._id !== action.payload
             );
         },
+        pointCreated: (state, action: PayloadAction<IPoint>) => {
+            state.entities.push(action.payload);
+        },
     },
 });
 
@@ -61,6 +64,7 @@ const {
     pointsUpdated,
     pointsUpdateFailed,
     pointDeleted,
+    pointCreated,
 } = actions;
 
 const pointsUpdateRequested = createAction("user/pointsUpdateRequested");
@@ -72,6 +76,15 @@ export const loadPoints = () => async (dispatch: Dispatch) => {
     try {
         const { content } = await pointsService.get();
         dispatch(pointsRecieved(content));
+    } catch (error: any) {
+        dispatch(pointsRequestFailed(error.message));
+    }
+};
+
+export const createPoint = (payload: IPoint) => async (dispatch: Dispatch) => {
+    try {
+        const { content } = await pointsService.createPoint(payload);
+        dispatch(pointCreated(content));
     } catch (error: any) {
         dispatch(pointsRequestFailed(error.message));
     }

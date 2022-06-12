@@ -8,6 +8,13 @@ const pointsService = {
         const { data } = await httpService.get(pointsEndPoint);
         return data;
     },
+    createPoint: async (payload: IPoint) => {
+        const { data } = await httpService.put(
+            pointsEndPoint + payload.properties._id,
+            payload
+        );
+        return data;
+    },
     patch: async (payload: IPoint[]) => {
         const { data } = await httpService.patch(pointsEndPoint, payload);
         return data;
