@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import Footer from "./components/footer";
 import AppLoader from "./components/hoc/appLoader";
 import NavBar from "./components/navBar/navBar";
 import Login from "./layouts/login";
@@ -26,6 +27,7 @@ const App: React.FC = (): JSX.Element => {
                     }
                 />
             </Routes>
+            <Footer />
         </AppLoader>
     );
 };

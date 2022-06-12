@@ -3,14 +3,14 @@ import {
     Collapse,
     Container,
     FormControlLabel,
-    Link
+    Link,
 } from "@mui/material";
 import React, { useState } from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-const Footer = () => {
-    const [checked, setChecked] = useState();
+const Footer: React.FC = () => {
+    const [checked, setChecked] = useState<boolean>(false);
 
     const handleChange = () => {
         setChecked((prev) => !prev);
@@ -18,15 +18,14 @@ const Footer = () => {
 
     return (
         <Container
-            maxWidth="100vw"
+            maxWidth="lg"
             sx={{
                 position: "fixed",
                 bottom: "0",
                 py: 2,
                 bgcolor: "primary.main",
-                zIndex: "fab" // theme.zIndex.fab
-            }}
-        >
+                zIndex: "fab", // theme.zIndex.fab
+            }}>
             <FormControlLabel
                 control={!checked ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                 onClick={handleChange}
@@ -39,8 +38,7 @@ const Footer = () => {
                         href="https://github.com/Canoist"
                         title="Canoist"
                         color="inherit"
-                        target="blank"
-                    >
+                        target="blank">
                         CANOIST
                     </Link>
                 </Box>
