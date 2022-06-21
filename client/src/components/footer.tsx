@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
 
     return (
         <Container
-            maxWidth="lg"
+            maxWidth={false}
             sx={{
                 position: "fixed",
                 bottom: "0",

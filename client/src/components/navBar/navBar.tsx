@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ mb: "18px", px: "15px" }}>
+        <AppBar position="static" sx={{ mb: "1px", px: "15px" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <NavBarDesktop onClickOpen={handleOpenNavMenu} />

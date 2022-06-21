@@ -6,22 +6,11 @@ import MapMarker from "../components/mapComponents/mapMarker";
 import MapLayer from "../components/mapComponents/mapLayer";
 import { getPoints } from "../store/points";
 import { useAppSelector } from "../store/hooks";
+import MapCurrentLocation from "../components/mapComponents/mapCurrentLocation";
 
 interface MapProps {
     points?: any;
 }
-
-// function MyComponent() {
-//     const map = useMapEvents({
-//         click: () => {
-//             map.locate();
-//         },
-//         locationfound: (location: any) => {
-//             console.log("location found:", location);
-//         },
-//     });
-//     return null;
-// }
 
 // function MyComponent() {
 //     const [position, setPosition] = useState<any>(null);
@@ -45,6 +34,7 @@ const Map: React.FC<MapProps> = () => {
             center={[60.1986, 30.3141]}
             zoom={8}
             scrollWheelZoom={true}>
+            <MapCurrentLocation />
             <MapLayer />
             {points &&
                 points.map((point: IPoint) => (
