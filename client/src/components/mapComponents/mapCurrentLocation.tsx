@@ -6,11 +6,6 @@ import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 
 const MapCurrentLocation: React.FC = () => {
     const map = useMap();
-    console.log(map.locate());
-    map.locate({
-        setView: true,
-        enableHighAccuracy: true,
-    });
 
     return (
         <MapControl position="bottomright">
@@ -20,7 +15,13 @@ const MapCurrentLocation: React.FC = () => {
                     minWidth: "36px",
                     mb: 3,
                 }}
-                variant="contained">
+                variant="contained"
+                onClick={() => {
+                    map.locate({
+                        setView: true,
+                        enableHighAccuracy: true,
+                    });
+                }}>
                 <GpsFixedIcon />
             </Button>
         </MapControl>
