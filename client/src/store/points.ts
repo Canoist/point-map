@@ -71,8 +71,6 @@ const pointsUpdateRequested = createAction("user/pointsUpdateRequested");
 
 export const loadPoints = () => async (dispatch: Dispatch) => {
     dispatch(pointsRequested());
-    console.log("start");
-
     try {
         const { content } = await pointsService.get();
         dispatch(pointsRecieved(content));

@@ -1,14 +1,12 @@
 import React from "react";
-import { useMapEvents } from "react-leaflet";
+import { useMap } from "react-leaflet";
 
 const MapCurrentLocation: React.FC = () => {
-    const map = useMapEvents({
-        click: () => {
-            map.locate();
-        },
-        locationfound: (location: any) => {
-            console.log("location found:", location);
-        },
+    const map = useMap();
+    console.log(map.locate());
+    map.locate({
+        setView: true,
+        enableHighAccuracy: true,
     });
     return null;
 };
