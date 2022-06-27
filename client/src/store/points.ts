@@ -72,8 +72,8 @@ const pointsUpdateRequested = createAction("user/pointsUpdateRequested");
 export const loadPoints = () => async (dispatch: Dispatch) => {
     dispatch(pointsRequested());
     try {
-        const { content } = await pointsService.get();
-        dispatch(pointsRecieved(content));
+        const data = await pointsService.get();
+        dispatch(pointsRecieved(data));
     } catch (error: any) {
         dispatch(pointsRequestFailed(error.message));
     }
