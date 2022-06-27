@@ -1,4 +1,11 @@
-import { Card } from "@mui/material";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Button,
+    CardMedia,
+    Typography,
+} from "@mui/material";
 import moment from "moment";
 import React from "react";
 import PointProperties from "../../types/pointProperties";
@@ -9,10 +16,27 @@ interface IMapCard {
 
 const MapCard: React.FC<IMapCard> = ({ properties }) => {
     return (
-        <Card>
-            <p>{moment(properties.date).format("DD.MM.YY HH:mm")}</p>
-            <h2>{properties.name}</h2>
-            <p>{properties.description}</p>
+        <Card variant="outlined" sx={{ mt: 2 }}>
+            <CardMedia
+                component="img"
+                height="140"
+                image="https://images.unsplash.com/photo-1459961615470-ce8d59b945ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
+                alt="photo"
+            />
+            <CardContent>
+                <Typography variant="caption">
+                    {moment(properties.date).format("DD.MM.YY HH:mm")}
+                </Typography>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                    {properties.name}
+                </Typography>
+                <Typography variant="subtitle2">
+                    {properties.description}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button size="small">Построить маршрут</Button>
+            </CardActions>
         </Card>
     );
 };
