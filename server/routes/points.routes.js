@@ -1,5 +1,5 @@
 const express = require("express");
-const Point = require("../models/Point");
+const Point = require("../models/Points");
 const auth = require("../middleware/auth.middleware");
 
 const router = express.Router({ mergeParams: true });
@@ -26,7 +26,7 @@ router.patch("/:pointId", auth, async (req, res) => {
     }
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const points = await Point.find();
         res.send(points);

@@ -15,8 +15,8 @@ const AppLoader: React.FC<IAppLoader> = ({ children }) => {
     const isLoaded = useAppSelector(getPointsLoadingStatus());
 
     useEffect(() => {
+        dispatch(loadPoints());
         if (isLoggedIn) {
-            dispatch(loadPoints());
             console.log("LoadUserList");
 
             // dispatch(loadUsersList())
