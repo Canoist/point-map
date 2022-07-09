@@ -27,6 +27,10 @@ interface MapProps {
 const Map: React.FC<MapProps> = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
 
+    const handleChangeLocation = (location: IPoint | null) => {
+        setActiveLocation(location);
+    };
+
     const points = useAppSelector(getPoints());
 
     return (
@@ -41,15 +45,15 @@ const Map: React.FC<MapProps> = () => {
                     <MapMarker
                         key={point.properties._id}
                         point={point}
-                        setActiveLocation={setActiveLocation}
-                    />
+                        setActiveLocation={handleChangeLocation}>
+                        {activeLocation && (
+                            <MapPopup
+                                setActiveLocation={handleChangeLocation}
+                                activeLocation={activeLocation}
+                            />
+                        )}
+                    </MapMarker>
                 ))}
-            {activeLocation && (
-                <MapPopup
-                    setActiveLocation={setActiveLocation}
-                    activeLocation={activeLocation}
-                />
-            )}
         </MapContainer>
     );
 };

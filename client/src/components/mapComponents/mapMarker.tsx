@@ -1,13 +1,18 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Marker } from "react-leaflet";
 import IPoint from "../../types/IPoint";
 
 interface IMapMarker {
     setActiveLocation: any;
     point: IPoint;
+    children: ReactNode;
 }
 
-const MapMarker: React.FC<IMapMarker> = ({ setActiveLocation, point }) => {
+const MapMarker: React.FC<IMapMarker> = ({
+    setActiveLocation,
+    point,
+    children,
+}) => {
     return (
         <Marker
             position={[
@@ -18,8 +23,9 @@ const MapMarker: React.FC<IMapMarker> = ({ setActiveLocation, point }) => {
                 click: () => {
                     setActiveLocation(point);
                 },
-            }}
-        />
+            }}>
+            {children}
+        </Marker>
     );
 };
 export default MapMarker;
