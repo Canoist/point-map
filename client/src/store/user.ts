@@ -54,15 +54,18 @@ const userSlice = createSlice({
         authRequestSuccess: (state, action: PayloadAction<AuthDataType>) => {
             state.auth = action.payload;
             state.isLoggedIn = true;
+            state.isLoading = false;
         },
         authRequested: (state) => {
             state.error = null;
+            state.isLoading = true;
         },
         userRequested: (state) => {
             state.isLoading = true;
         },
         authRequestFailed: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
+            state.isLoading = false;
         },
         userRecieved: (state, action: PayloadAction<UserDateType>) => {
             state.entities = action.payload;
@@ -110,7 +113,6 @@ export const signUp = (payload: any) => async (dispatch: Dispatch) => {
         const data = await authService.register(payload);
         localStorageService.setTokens(data);
         dispatch(authRequestSuccess({ userId: data.userId }));
-        history.push("/");
         const user = await userService.get();
         dispatch(userRecieved(user));
     } catch (error: any) {
@@ -169,7 +171,6 @@ export const deleteUser = () => async (dispatch: Dispatch) => {
 export const logOut = () => (dispatch: Dispatch) => {
     localStorageService.removeAuthData();
     dispatch(userLoggedOut());
-    history.push("/");
 };
 
 export const loadUser = () => async (dispatch: Dispatch) => {
@@ -187,7 +188,6 @@ export const updateUser = (payload: any) => async (dispatch: Dispatch) => {
     try {
         const data = await userService.patch(payload);
         dispatch(userUpdated(data));
-        history.push("/");
     } catch (error: any) {
         dispatch(userUpdateFailed(error.message));
     }

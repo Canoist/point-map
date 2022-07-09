@@ -9,6 +9,7 @@ import {
 import moment from "moment";
 import React from "react";
 import PointProperties from "../../types/pointProperties";
+import DirectionsIcon from "@mui/icons-material/Directions";
 
 interface IMapCard {
     properties: PointProperties;
@@ -34,8 +35,13 @@ const MapCard: React.FC<IMapCard> = ({ properties }) => {
                     {properties.description}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button size="small">Построить маршрут</Button>
+            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                    size="small"
+                    startIcon={<DirectionsIcon />}
+                    variant="outlined">
+                    Построить маршрут
+                </Button>
             </CardActions>
         </Card>
     );

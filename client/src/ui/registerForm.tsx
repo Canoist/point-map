@@ -6,20 +6,16 @@ import TitleForm from "./titleForm";
 import Adornment from "./adornment";
 import SignInButton from "./signInButton";
 import sxForm from "../styles/sxForm";
-import {
-    // useAppDispatch,
-    useAppSelector,
-} from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import ILogin from "../types/ILogin";
-import {
-    getAuthErrors,
-    // signUp
-} from "../store/user";
+import { getAuthErrors, signUp } from "../store/user";
 import TextLastname from "./textLastname";
 import TextFirstname from "./textFirstname";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
-    // const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [authError, setAuthError] = useState<any>(null);
 
@@ -41,7 +37,8 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     const onSubmit = (data: any) => {
         const newData = { ...data, points: [] };
         console.log(newData);
-        // dispatch(signUp(data));
+        dispatch(signUp(data));
+        navigate("/", { replace: true });
     };
     return (
         <Box component="form" sx={sxForm} onSubmit={handleSubmit(onSubmit)}>

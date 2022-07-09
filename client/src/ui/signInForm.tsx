@@ -8,7 +8,7 @@ import sxForm from "../styles/sxForm";
 import { getAuthErrors, logIn } from "../store/user";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import ILogin from "../types/ILogin";
-// import { useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const defaultValues = {
     email: "",
@@ -17,9 +17,16 @@ const defaultValues = {
 };
 
 export type FiledValues = typeof defaultValues;
+type LocationProps = {
+    state: {
+        from: Location;
+    };
+};
 
 const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
-    // const history = useHistory();
+    const location = useLocation() as unknown as LocationProps;
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [error, setError] = useState<null | any>(null);
     const [data, setData] = useState<FiledValues>(defaultValues);
@@ -39,22 +46,28 @@ const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
         setShowPassword(!showPassword);
     };
 
+    // 1234ABC
+    // a@MAIL.RU
+
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        // const redirect = history.location.state
-        //     ? history.location.state.from.pathname
-        //     : "/";
+
+        const from = location.state?.from?.pathname || "/";
         dispatch(
             logIn({
                 payload: data,
-                // redirect
+                redirect: from,
             })
-        );
+        ).then(() => {
+            navigate(from, { replace: true });
+        });
     };
 
     return (
         <Box component="form" sx={sxForm} onSubmit={handleSubmit}>
             <TitleForm />
+            <p>ax@mail.ru</p>
+            <p>1234ABC</p>
             <TextField
                 error={!!error}
                 helperText={error || null}

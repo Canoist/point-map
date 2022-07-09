@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getPointsLoadingStatus, loadPoints } from "../../store/points";
-import { getIsLoggedIn } from "../../store/user";
+import { getIsLoggedIn, getUsersLoadingStatus } from "../../store/user";
 import WindowLoader from "../windowLoader";
 
 interface IAppLoader {
@@ -11,19 +11,20 @@ interface IAppLoader {
 const AppLoader: React.FC<IAppLoader> = ({ children }) => {
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(getIsLoggedIn());
-    // const userStatusLoading = useAppSelector(getUsersLoadingStatus());
-    const isLoaded = useAppSelector(getPointsLoadingStatus());
+    const isLoadPoints = useAppSelector(getPointsLoadingStatus());
+    const isLoadUser = useAppSelector(getUsersLoadingStatus());
+
+    const isLoad = isLoadPoints && isLoadUser;
 
     useEffect(() => {
         dispatch(loadPoints());
         if (isLoggedIn) {
-            console.log("LoadUserList");
+            console.log("Here will be LoadUserList");
 
             // dispatch(loadUsersList())
         }
     }, [dispatch, isLoggedIn]);
-    // if (!userStatusLoading) return <WindowLoader />;
-    if (isLoaded) return <WindowLoader />;
+    if (isLoad) return <WindowLoader />;
 
     return children;
 };
