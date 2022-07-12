@@ -97,7 +97,8 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                     },
                 })}
             />
-            <SignInButton forSignIn={false} />
+        <SignInButton forSignIn={false} />
+        {authError&&(<p>loginError.message</p>)}
             <LinkToForm forSignIn={false} toggleForm={toggleForm} />
         </Box>
     );

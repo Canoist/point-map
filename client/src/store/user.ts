@@ -144,7 +144,9 @@ export const logIn =
             const user = await userService.get();
             dispatch(userRecieved(user));
         } catch (error: any) {
-            const { code, message } = error.response.data.error;
+          console.log(error.message);
+          
+            const { code, message } = error;
             if (code === 400) {
                 const errorMessage = generateAuthError(message);
                 dispatch(authRequestFailed(errorMessage));
