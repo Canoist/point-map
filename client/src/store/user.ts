@@ -9,7 +9,6 @@ import localStorageService from "../services/localStorageService";
 import userService from "../services/userService";
 import { FiledValues } from "../ui/signInForm";
 import { generateAuthError } from "../utils/generateAuthError";
-import history from "../utils/history";
 
 type UserDateType = {
     firstname: string;
@@ -107,24 +106,26 @@ const {
 const authRequested = createAction("user/authRequested");
 const userUpdateRequested = createAction("user/userUpdateRequested");
 
-export const signUp = (payload: any) => async (dispatch: Dispatch) => {
-    dispatch(authRequested());
-    try {
-        const data = await authService.register(payload);
-        localStorageService.setTokens(data);
-        dispatch(authRequestSuccess({ userId: data.userId }));
-        const user = await userService.get();
-        dispatch(userRecieved(user));
-    } catch (error: any) {
-        const { code, message } = error.response.data.error;
-        if (code === 400) {
-            const errorMessage = generateAuthError(message);
-            dispatch(authRequestFailed(errorMessage));
-        } else {
-            dispatch(authRequestFailed(error.message));
+export const signUp =
+    (payload: any, navigate: any) => async (dispatch: Dispatch) => {
+        dispatch(authRequested());
+        try {
+            const data = await authService.register(payload);
+            localStorageService.setTokens(data);
+            dispatch(authRequestSuccess({ userId: data.userId }));
+            const user = await userService.get();
+            dispatch(userRecieved(user));
+            navigate("/", { replace: true });
+        } catch (error: any) {
+            const { code, message } = error.response.data.error;
+            if (code === 400) {
+                const errorMessage = generateAuthError(message);
+                dispatch(authRequestFailed(errorMessage));
+            } else {
+                dispatch(authRequestFailed(error.message));
+            }
         }
-    }
-};
+    };
 
 type LoginType = {
     payload: FiledValues;
@@ -132,7 +133,7 @@ type LoginType = {
 };
 
 export const logIn =
-    ({ payload, redirect }: LoginType) =>
+    ({ payload, redirect }: LoginType, navigate: any) =>
     async (dispatch: Dispatch) => {
         const { email, password } = payload;
         dispatch(authRequested());
@@ -140,9 +141,9 @@ export const logIn =
             const data = await authService.login({ email, password });
             localStorageService.setTokens(data);
             dispatch(authRequestSuccess({ userId: data.userId }));
-            history.push(redirect);
             const user = await userService.get();
             dispatch(userRecieved(user));
+            navigate(redirect, { replace: true });
         } catch (error: any) {
             console.log(error.message);
 
@@ -170,7 +171,7 @@ export const deleteUser = () => async (dispatch: Dispatch) => {
     }
 };
 
-export const logOut = () => (dispatch: Dispatch) => {
+export const logOut = (payload: any) => (dispatch: Dispatch) => {
     localStorageService.removeAuthData();
     dispatch(userLoggedOut());
 };

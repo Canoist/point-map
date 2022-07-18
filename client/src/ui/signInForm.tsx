@@ -1,9 +1,6 @@
 import { Box, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import {
-    useLocation
-    // useNavigate
-} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { getAuthErrors, logIn } from "../store/user";
 import sxForm from "../styles/sxForm";
@@ -28,7 +25,7 @@ type LocationProps = {
 
 const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
     const location = useLocation() as unknown as LocationProps;
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [error, setError] = useState<null | any>(null);
@@ -54,16 +51,14 @@ const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         await dispatch(
-            logIn({
-                payload: data,
-                redirect: from
-            })
+            logIn(
+                {
+                    payload: data,
+                    redirect: from
+                },
+                navigate
+            )
         );
-        //     .then(() => {
-        //     if (!loginError) {
-        //         navigate(from, { replace: true });
-        //     }
-        // });
     };
 
     return (

@@ -9,11 +9,6 @@ import Main from "./layouts/main";
 import OwnPoints from "./layouts/ownPoints";
 
 const App: React.FC = (): JSX.Element => {
-    //   const handleSubmit = (incomingData: any) => {
-    //     setPointList((prev: any) => [...prev, incomingData]);
-    //     console.log(incomingData);
-    //   };
-
     return (
         <AppLoader>
             <NavBar />
@@ -21,13 +16,7 @@ const App: React.FC = (): JSX.Element => {
                 <Route path="ownPoints" element={<OwnPoints />} />
                 <Route path="login" element={<Login />} />
                 <Route path="logout" element={<LogOut />} />
-                <Route
-                    path="*"
-                    element={
-                        <Main />
-                        //   onSubmit={handleSubmit}
-                    }
-                />
+                <Route path="*" element={<Main />} />
             </Routes>
             <Footer />
         </AppLoader>

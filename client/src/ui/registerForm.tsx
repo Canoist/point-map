@@ -37,11 +37,7 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     const onSubmit = (data: any) => {
         const newData = { ...data, points: [] };
         console.log(newData);
-        dispatch(signUp(data)).then(() => {
-            if (!authError) {
-                navigate("/", { replace: true });
-            }
-        });
+        dispatch(signUp(data, navigate));
     };
     return (
         <Box component="form" sx={sxForm} onSubmit={handleSubmit(onSubmit)}>

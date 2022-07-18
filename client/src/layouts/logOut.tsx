@@ -9,8 +9,7 @@ const LogOut: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(logOut());
-        navigate("../", { replace: true });
+        dispatch(logOut(navigate("/", { replace: true })));
     }, [dispatch, navigate]);
 
     return <CircularProgress />;
