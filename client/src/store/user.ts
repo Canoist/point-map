@@ -2,7 +2,7 @@ import {
     createAction,
     createSlice,
     Dispatch,
-    PayloadAction,
+    PayloadAction
 } from "@reduxjs/toolkit";
 import authService from "../services/authService";
 import localStorageService from "../services/localStorageService";
@@ -36,7 +36,7 @@ const initialState: UserState = localStorageService.getAccessToken()
           error: null,
           auth: { userId: localStorageService.getUserId() },
           isLoggedIn: true,
-          dataLoaded: false,
+          dataLoaded: false
       }
     : {
           entities: null,
@@ -44,7 +44,7 @@ const initialState: UserState = localStorageService.getAccessToken()
           error: null,
           auth: null,
           isLoggedIn: false,
-          dataLoaded: false,
+          dataLoaded: false
       };
 
 const userSlice = createSlice({
@@ -88,8 +88,8 @@ const userSlice = createSlice({
         userUpdateFailed: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
             state.isLoading = false;
-        },
-    },
+        }
+    }
 });
 
 const { reducer: userReducer, actions } = userSlice;
@@ -101,7 +101,7 @@ const {
     authRequestFailed,
     userLoggedOut,
     userUpdated,
-    userUpdateFailed,
+    userUpdateFailed
 } = actions;
 
 const authRequested = createAction("user/authRequested");
@@ -144,8 +144,8 @@ export const logIn =
             const user = await userService.get();
             dispatch(userRecieved(user));
         } catch (error: any) {
-          console.log(error.message);
-          
+            console.log(error.message);
+
             const { code, message } = error;
             if (code === 400) {
                 const errorMessage = generateAuthError(message);

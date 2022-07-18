@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
 import L from "leaflet";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 interface IControl {
     position: L.ControlPosition;
     children?: React.ReactNode;
-    style?: React.CSSProperties;
     prepend?: boolean;
 }
 
@@ -19,7 +18,6 @@ const POSITION_CLASSES = {
 const MapControl: React.FC<IControl> = ({
     position,
     children,
-    style,
     prepend,
 }) => {
     const [portalRoot, setPortalRoot] = useState<any>(

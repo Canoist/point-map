@@ -1,19 +1,22 @@
 import { Box, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import LinkToForm from "./linkToForm";
-import TitleForm from "./titleForm";
-import Adornment from "./adornment";
-import SignInButton from "./signInButton";
-import sxForm from "../styles/sxForm";
-import { getAuthErrors, logIn } from "../store/user";
+import {
+    useLocation
+    // useNavigate
+} from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { getAuthErrors, logIn } from "../store/user";
+import sxForm from "../styles/sxForm";
 import ILogin from "../types/ILogin";
-import { useLocation, useNavigate } from "react-router-dom";
+import Adornment from "./adornment";
+import LinkToForm from "./linkToForm";
+import SignInButton from "./signInButton";
+import TitleForm from "./titleForm";
 
 const defaultValues = {
     email: "",
     password: "",
-    stayOn: false,
+    stayOn: false
 };
 
 export type FiledValues = typeof defaultValues;
@@ -25,13 +28,15 @@ type LocationProps = {
 
 const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
     const location = useLocation() as unknown as LocationProps;
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [error, setError] = useState<null | any>(null);
     const [data, setData] = useState<FiledValues>(defaultValues);
     const dispatch = useAppDispatch();
     const loginError = useAppSelector(getAuthErrors());
+
+    let from = location.state?.from?.pathname || "/";
 
     const handleChange = ({ target }: any) => {
         setData((prev) => ({ ...prev, [target.id]: target.value }));
@@ -46,21 +51,19 @@ const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
         setShowPassword(!showPassword);
     };
 
-    // 1234ABC
-    // a@MAIL.RU
-
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-
-        const from = location.state?.from?.pathname || "/";
-        dispatch(
+        await dispatch(
             logIn({
                 payload: data,
-                redirect: from,
+                redirect: from
             })
-        ).then(() => {
-            navigate(from, { replace: true });
-        });
+        );
+        //     .then(() => {
+        //     if (!loginError) {
+        //         navigate(from, { replace: true });
+        //     }
+        // });
     };
 
     return (
@@ -93,7 +96,7 @@ const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
                             onClick={handleClickShowPassword}
                         />
                     ),
-                    type: showPassword ? "text" : "password",
+                    type: showPassword ? "text" : "password"
                 }}
             />
             <SignInButton forSignIn={true} />

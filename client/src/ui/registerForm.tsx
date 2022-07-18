@@ -1,17 +1,17 @@
 import { Box, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import LinkToForm from "./linkToForm";
-import TitleForm from "./titleForm";
-import Adornment from "./adornment";
-import SignInButton from "./signInButton";
-import sxForm from "../styles/sxForm";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import ILogin from "../types/ILogin";
-import { getAuthErrors, signUp } from "../store/user";
-import TextLastname from "./textLastname";
-import TextFirstname from "./textFirstname";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { getAuthErrors, signUp } from "../store/user";
+import sxForm from "../styles/sxForm";
+import ILogin from "../types/ILogin";
+import Adornment from "./adornment";
+import LinkToForm from "./linkToForm";
+import SignInButton from "./signInButton";
+import TextFirstname from "./textFirstname";
+import TextLastname from "./textLastname";
+import TitleForm from "./titleForm";
 
 const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }
     } = useForm();
 
     const loginError = useAppSelector(getAuthErrors());
@@ -37,8 +37,11 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     const onSubmit = (data: any) => {
         const newData = { ...data, points: [] };
         console.log(newData);
-        dispatch(signUp(data));
-        navigate("/", { replace: true });
+        dispatch(signUp(data)).then(() => {
+            if (!authError) {
+                navigate("/", { replace: true });
+            }
+        });
     };
     return (
         <Box component="form" sx={sxForm} onSubmit={handleSubmit(onSubmit)}>
@@ -55,16 +58,16 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                 {...register("password", {
                     required: {
                         value: true,
-                        message: "Поле обязательно для заполнения",
+                        message: "Поле обязательно для заполнения"
                     },
                     minLength: {
                         value: 7,
-                        message: "Минимальная длина пароля 7 символов",
+                        message: "Минимальная длина пароля 7 символов"
                     },
                     pattern: {
                         value: /\d+/g,
-                        message: "Необходимо наличие хотя бы одной цифры",
-                    },
+                        message: "Необходимо наличие хотя бы одной цифры"
+                    }
                 })}
                 InputProps={{
                     endAdornment: (
@@ -73,7 +76,7 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                             onClick={handleClickShowPassword}
                         />
                     ),
-                    type: showPassword ? "text" : "password",
+                    type: showPassword ? "text" : "password"
                 }}
             />
             <TextField
@@ -89,16 +92,16 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                 {...register("email", {
                     required: {
                         value: true,
-                        message: "Поле обязательно для заполнения",
+                        message: "Поле обязательно для заполнения"
                     },
                     pattern: {
                         value: /^\S+@\S+\.\S+$/i,
-                        message: "Email введен некорректно. Шаблон abc@abc.com",
-                    },
+                        message: "Email введен некорректно. Шаблон abc@abc.com"
+                    }
                 })}
             />
-        <SignInButton forSignIn={false} />
-        {authError&&(<p>loginError.message</p>)}
+            <SignInButton forSignIn={false} />
+            {authError && <p>loginError.message</p>}
             <LinkToForm forSignIn={false} toggleForm={toggleForm} />
         </Box>
     );
