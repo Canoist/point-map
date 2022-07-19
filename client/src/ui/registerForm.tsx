@@ -1,6 +1,6 @@
 import { Box, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { getAuthErrors, signUp } from "../store/user";
@@ -13,6 +13,13 @@ import TextFirstname from "./textFirstname";
 import TextLastname from "./textLastname";
 import TitleForm from "./titleForm";
 
+export interface IFormInputs {
+    firstname: string;
+    lastname: string;
+    password: string;
+    email: string;
+}
+
 const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -23,7 +30,7 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm();
+    } = useForm<IFormInputs>();
 
     const loginError = useAppSelector(getAuthErrors());
     useEffect(() => {
@@ -34,18 +41,18 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
         setShowPassword(!showPassword);
     };
 
-    const onSubmit = (data: any) => {
+    const onSubmit: SubmitHandler<IFormInputs> = (data: any) => {
         const newData = { ...data, points: [] };
         dispatch(signUp(newData, navigate));
     };
     return (
         <Box component="form" sx={sxForm} onSubmit={handleSubmit(onSubmit)}>
             <TitleForm />
-            <TextFirstname error={errors.firstname} register={register} />
-            <TextLastname error={errors.lastname} register={register} />
+            <TextFirstname error={errors} register={register} />
+            <TextLastname error={errors} register={register} />
             <TextField
                 error={!!errors.password}
-                helperText={errors.password ? errors.password.message : null}
+                helperText={errors.password && errors.password.message}
                 id="password"
                 label="Пароль"
                 variant="standard"
@@ -96,7 +103,6 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                 })}
             />
             <SignInButton forSignIn={false} />
-            {authError && <p>loginError.message</p>}
             <LinkToForm forSignIn={false} toggleForm={toggleForm} />
         </Box>
     );

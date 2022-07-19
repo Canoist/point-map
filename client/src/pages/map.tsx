@@ -7,6 +7,7 @@ import MapLayer from "../components/mapComponents/mapLayer";
 import { getPoints } from "../store/points";
 import { useAppSelector } from "../store/hooks";
 import MapCurrentLocation from "../components/mapComponents/mapCurrentLocation";
+import MarkerClusterGroup from "react-leaflet-markercluster";
 
 interface MapProps {
     points?: any;
@@ -37,23 +38,27 @@ const Map: React.FC<MapProps> = () => {
         <MapContainer
             center={[60.1986, 30.3141]}
             zoom={8}
-            scrollWheelZoom={true}>
+            scrollWheelZoom={true}
+        >
             <MapCurrentLocation />
             <MapLayer />
-            {points &&
-                points.map((point: IPoint) => (
-                    <MapMarker
-                        key={point.properties._id}
-                        point={point}
-                        setActiveLocation={handleChangeLocation}>
-                        {activeLocation && (
-                            <MapPopup
-                                setActiveLocation={handleChangeLocation}
-                                activeLocation={activeLocation}
-                            />
-                        )}
-                    </MapMarker>
-                ))}
+            <MarkerClusterGroup>
+                {points &&
+                    points.map((point: IPoint) => (
+                        <MapMarker
+                            key={point.properties._id}
+                            point={point}
+                            setActiveLocation={handleChangeLocation}
+                        >
+                            {activeLocation && (
+                                <MapPopup
+                                    setActiveLocation={handleChangeLocation}
+                                    activeLocation={activeLocation}
+                                />
+                            )}
+                        </MapMarker>
+                    ))}
+            </MarkerClusterGroup>
         </MapContainer>
     );
 };

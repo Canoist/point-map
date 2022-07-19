@@ -1,12 +1,11 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
-
-export interface ErrorFromHook {
-    message: string;
-    ref: HTMLAnchorElement;
-    type: string;
-}
+import { IFormInputs } from "./../ui/registerForm";
+import {
+    DeepRequired,
+    FieldErrorsImpl,
+    UseFormRegister
+} from "react-hook-form";
 
 export default interface ITextFieldForm {
-    error: undefined | ErrorFromHook;
-    register: UseFormRegister<FieldValues>;
+    error: FieldErrorsImpl<DeepRequired<IFormInputs>>;
+    register: UseFormRegister<IFormInputs>;
 }
