@@ -1,10 +1,8 @@
 import {
     AppBar,
+    Box,
     Button,
     Dialog,
-    List,
-    ListItem,
-    ListItemText,
     Slide,
     Toolbar,
     Typography
@@ -13,6 +11,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import RadioGroupRating from "../radioGroupRating";
 
 interface IAddPointWindow {
     open: boolean;
@@ -51,27 +50,30 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({ open, onClose }) => {
                         variant="h6"
                         component="div"
                     >
-                        Sound
+                        Create a new basketball place
                     </Typography>
                     <Button autoFocus color="inherit" onClick={onClose}>
                         save
                     </Button>
                 </Toolbar>
             </AppBar>
-            <List>
-                <ListItem button>
-                    <ListItemText
-                        primary="Phone ringtone"
-                        secondary="Titania"
-                    />
-                </ListItem>
-                <ListItem button>
-                    <ListItemText
-                        primary="Default notification ringtone"
-                        secondary="Tethys"
-                    />
-                </ListItem>
-            </List>
+            <Box sx={{ ml: 4, mt: 2 }}>
+                <Typography sx={{ mb: 2 }} component="legend">
+                    Court
+                </Typography>
+                <Typography
+                    sx={{ mb: 2 }}
+                    component="legend"
+                    variant="subtitle2"
+                >
+                    Condition of the basketball court
+                </Typography>
+                <RadioGroupRating sx={{ mb: 2 }} />
+                <Typography sx={{ mb: 2 }} component="legend">
+                    Hoop
+                </Typography>
+                <RadioGroupRating sx={{ mb: 2 }} />
+            </Box>
         </Dialog>
     );
 };
