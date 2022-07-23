@@ -11,19 +11,20 @@ interface IMapMarker {
 const MapMarker: React.FC<IMapMarker> = ({
     setActiveLocation,
     point,
-    children,
+    children
 }) => {
     return (
         <Marker
             position={[
                 point.geometry.coordinates[0],
-                point.geometry.coordinates[1],
+                point.geometry.coordinates[1]
             ]}
             eventHandlers={{
                 click: () => {
                     setActiveLocation(point);
-                },
-            }}>
+                }
+            }}
+        >
             {children}
         </Marker>
     );

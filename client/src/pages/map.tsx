@@ -8,22 +8,12 @@ import { getPoints } from "../store/points";
 import { useAppSelector } from "../store/hooks";
 import MapCurrentLocation from "../components/mapComponents/mapCurrentLocation";
 import MarkerCluster from "../components/hoc/markerCluster";
+import MapEvents from "../components/mapComponents/mapEvents";
 
 interface MapProps {
     points?: any;
 }
 
-// function MyComponent() {
-//     const [position, setPosition] = useState<any>(null);
-//     const map = useMapEvents({
-//         click() {
-//             map.locate();
-//         },
-//         locationfound(e:any) {
-//             setPosition(e.latlng);
-//             map.flyTo(e.latlng, map.getZoom());
-//         },
-//     });
 
 const Map: React.FC<MapProps> = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
@@ -59,6 +49,7 @@ const Map: React.FC<MapProps> = () => {
                         </MapMarker>
                     ))}
             </MarkerCluster>
+            <MapEvents/>
         </MapContainer>
     );
 };

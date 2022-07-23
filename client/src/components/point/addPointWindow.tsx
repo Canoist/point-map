@@ -1,106 +1,91 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+    AppBar,
+    Button,
+    Dialog,
+    List,
+    ListItem,
+    ListItemText,
+    Slide,
+    Toolbar,
+    Typography
+} from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 import React, { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
-interface IAddPointWindow {
-    onSubmit: any;
-    toMap: any;
-}
+interface IAddPointWindow {}
 
-const AddPointWindow: React.FC<IAddPointWindow> = ({ onSubmit, toMap }) => {
-    const [data, setData] = useState<any>(null);
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement;
+    },
+    ref: React.Ref<unknown>
+) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+const AddPointWindow: React.FC<IAddPointWindow> = () => {
+    const [open, setOpen] = useState(false);
 
-    const handleSubmit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        const newData = transformData(data);
-        onSubmit(newData);
-        toMap(null, 0);
+    const handleClickOpen = () => {
+        setOpen(true);
     };
 
-    function transformData(data: any) {
-        return {
-            type: "Feature",
-            properties: {
-                name: data.name,
-                description: data.description,
-                date: Date.now(),
-            },
-            geometry: {
-                type: "Point",
-                coordinates: [Number(data.lon), Number(data.lat)],
-            },
-        };
-    }
-
-    const handleChange = (e: any): void => {
-        const { target } = e;
-        setData((prev: any) =>
-            prev
-                ? { ...prev, [target.id]: target.value }
-                : { [target.id]: target.value }
-        );
+    const handleClose = () => {
+        setOpen(false);
     };
 
     return (
-        <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-                boxShadow: 16,
-                width: "600px",
-                p: 5,
-                mx: "auto",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-            }}>
-            <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
-                Добавить точку на карту
-            </Typography>
-            <TextField
-                id="name"
-                margin="normal"
-                label="Название точки"
-                variant="filled"
-                onChange={handleChange}
-            />
-            <TextField
-                id="description"
-                margin="normal"
-                label="Описание точки"
-                variant="filled"
-                onChange={handleChange}
-                multiline
-            />
-            <Box sx={{ textAlign: "center" }}>
-                <Typography variant="h5">Введите координаты</Typography>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <TextField
-                        sx={{ width: "45%" }}
-                        id="lon"
-                        label="Долгота"
-                        variant="filled"
-                        onChange={handleChange}
-                        margin="normal"
-                    />
-                    <TextField
-                        sx={{ width: "45%" }}
-                        id="lat"
-                        label="Широта"
-                        variant="filled"
-                        onChange={handleChange}
-                        margin="normal"
-                    />
-                </Box>
-            </Box>
-            <Button
-                variant="contained"
-                type="submit"
-                sx={{
-                    mt: 2,
-                }}>
-                Добавить
+        <div>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                Open full-screen dialog
             </Button>
-        </Box>
+            <Dialog
+                fullScreen
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Transition}
+            >
+                <AppBar sx={{ position: "relative" }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={handleClose}
+                            aria-label="close"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                        <Typography
+                            sx={{ ml: 2, flex: 1 }}
+                            variant="h6"
+                            component="div"
+                        >
+                            Sound
+                        </Typography>
+                        <Button autoFocus color="inherit" onClick={handleClose}>
+                            save
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+                <List>
+                    <ListItem button>
+                        <ListItemText
+                            primary="Phone ringtone"
+                            secondary="Titania"
+                        />
+                    </ListItem>
+                    s
+                    <ListItem button>
+                        <ListItemText
+                            primary="Default notification ringtone"
+                            secondary="Tethys"
+                        />
+                    </ListItem>
+                </List>
+            </Dialog>
+        </div>
     );
 };
+
 export default AddPointWindow;
