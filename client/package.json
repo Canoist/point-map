@@ -8,6 +8,7 @@
         "email": "lionproklon@gmail.com"
     },
     "dependencies": {
+        "@changey/react-leaflet-markercluster": "^4.0.0-rc1",
         "@emotion/react": "^11.9.0",
         "@emotion/styled": "^11.8.1",
         "@mui/icons-material": "^5.6.2",
@@ -28,7 +29,6 @@
         "react-dom": "^18.1.0",
         "react-leaflet": "^4.0.0",
         "react-leaflet-locate-control": "^0.1.6",
-        "react-leaflet-markercluster": "^3.0.0-rc1",
         "react-redux": "^8.0.1",
         "react-router-dom": "^6.3.0",
         "react-scripts": "5.0.1",

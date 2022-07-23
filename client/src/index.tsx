@@ -6,8 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/createStore";
-import "~leaflet/dist/leaflet.css";
-import "react-leaflet-markercluster/dist/styles.min.css";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
