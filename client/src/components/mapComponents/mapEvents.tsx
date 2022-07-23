@@ -1,12 +1,15 @@
 import React from "react";
 import { useMapEvents } from "react-leaflet";
-import L from "leaflet";
 
-const MapEvents: React.FC = () => {
-    const map = useMapEvents({
+interface IMapEvents {
+    setTemplate: any;
+}
+
+const MapEvents: React.FC<IMapEvents> = ({ setTemplate }) => {
+    useMapEvents({
         contextmenu(e) {
             const { lat, lng } = e.latlng;
-            L.marker([lat, lng]).addTo(map);
+            setTemplate([lat, lng]);
         }
     });
     return null;

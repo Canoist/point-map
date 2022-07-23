@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapContainer } from "react-leaflet";
+import { MapContainer, Marker } from "react-leaflet";
 import IPoint from "../types/IPoint";
 import MapPopup from "../components/mapComponents/mapPopup";
 import MapMarker from "../components/mapComponents/mapMarker";
@@ -9,17 +9,22 @@ import { useAppSelector } from "../store/hooks";
 import MapCurrentLocation from "../components/mapComponents/mapCurrentLocation";
 import MarkerCluster from "../components/hoc/markerCluster";
 import MapEvents from "../components/mapComponents/mapEvents";
+import { LatLngExpression } from "leaflet";
 
 interface MapProps {
     points?: any;
 }
 
-
 const Map: React.FC<MapProps> = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
+    const [tempMarker, setTempMarker] = useState<LatLngExpression | null>(null);
 
     const handleChangeLocation = (location: IPoint | null) => {
         setActiveLocation(location);
+    };
+
+    const handleChangeTempMarker = (latlng: LatLngExpression) => {
+        setTempMarker((prev) => (prev ? null : latlng));
     };
 
     const points = useAppSelector(getPoints());
@@ -48,8 +53,9 @@ const Map: React.FC<MapProps> = () => {
                             )}
                         </MapMarker>
                     ))}
+                {tempMarker && <Marker position={tempMarker} />}
             </MarkerCluster>
-            <MapEvents/>
+            <MapEvents setTemplate = {handleChangeTempMarker}/>
         </MapContainer>
     );
 };
