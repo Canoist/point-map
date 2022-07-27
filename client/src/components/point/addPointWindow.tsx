@@ -5,17 +5,20 @@ import {
     Dialog,
     Slide,
     Toolbar,
-    Typography
+    Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import React from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import RadioGroupRating from "../radioGroupRating";
+import { LatLngExpression } from "leaflet";
+import IPoint from "../../types/IPoint";
 
 interface IAddPointWindow {
     open: boolean;
     onClose: any;
+    latLng: LatLngExpression;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -27,7 +30,31 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const AddPointWindow: React.FC<IAddPointWindow> = ({ open, onClose }) => {
+const AddPointWindow: React.FC<IAddPointWindow> = ({
+    open,
+    onClose,
+    latLng,
+}) => {
+    const [data, setData] = useState<IPoint>({
+        type: "Feature",
+        properties: {
+            _id: `${latLng}`,
+            name: "",
+            description: "",
+            date: Date.now(),
+        },
+        geometry: {
+            type: "Point",
+            coordinates: [60.67881898821351, 30.00185121217478],
+        },
+    });
+
+    const handleChange = (data: IPoint) => {
+        console.log(data);
+
+        setData(data);
+    };
+
     return (
         <Dialog
             fullScreen
@@ -68,11 +95,19 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({ open, onClose }) => {
                 >
                     Condition of the basketball court
                 </Typography>
-                <RadioGroupRating sx={{ mb: 2 }} />
+                <RadioGroupRating
+                    sx={{ mb: 2 }}
+                    data={data}
+                    onChange={handleChange}
+                />
                 <Typography sx={{ mb: 2 }} component="legend">
                     Hoop
                 </Typography>
-                <RadioGroupRating sx={{ mb: 2 }} />
+                <RadioGroupRating
+                    sx={{ mb: 2 }}
+                    data={data}
+                    onChange={handleChange}
+                />
             </Box>
         </Dialog>
     );

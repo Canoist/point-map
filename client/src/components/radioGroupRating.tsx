@@ -8,11 +8,12 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import { Box } from "@mui/material";
 import { Theme } from "@mui/system";
+import IPoint from "../types/IPoint";
 
 const StyledRating = styled(Rating)(({ theme }) => ({
     "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
-        color: theme.palette.action.disabled
-    }
+        color: theme.palette.action.disabled,
+    },
 }));
 
 const customIcons: {
@@ -23,24 +24,24 @@ const customIcons: {
 } = {
     1: {
         icon: <SentimentVeryDissatisfiedIcon color="error" />,
-        label: "Very Dissatisfied"
+        label: "Very Dissatisfied",
     },
     2: {
         icon: <SentimentDissatisfiedIcon color="error" />,
-        label: "Dissatisfied"
+        label: "Dissatisfied",
     },
     3: {
         icon: <SentimentSatisfiedIcon color="warning" />,
-        label: "Neutral"
+        label: "Neutral",
     },
     4: {
         icon: <SentimentSatisfiedAltIcon color="success" />,
-        label: "Satisfied"
+        label: "Satisfied",
     },
     5: {
         icon: <SentimentVerySatisfiedIcon color="success" />,
-        label: "Very Satisfied"
-    }
+        label: "Very Satisfied",
+    },
 };
 
 const IconContainer: React.FC<IconContainerProps> = (props) => {
@@ -50,10 +51,23 @@ const IconContainer: React.FC<IconContainerProps> = (props) => {
 
 interface IRadioGroupRating {
     sx?: SxProps<Theme>;
+    onChange: any;
+    data: IPoint;
 }
 
-const RadioGroupRating: React.FC<IRadioGroupRating> = ({ sx }) => {
+const RadioGroupRating: React.FC<IRadioGroupRating> = ({
+    sx,
+    onChange,
+    data,
+}) => {
     const [value, setValue] = useState<number | null>(3);
+
+    const handleChange = () => {
+        onChange({
+            ...data,
+            properties: { ...data.properties, name: customIcons[value!].label },
+        });
+    };
 
     return (
         <Box
@@ -61,7 +75,7 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({ sx }) => {
                 width: 270,
                 display: "flex",
                 alignItems: "center",
-                ...sx
+                ...sx,
             }}
         >
             <StyledRating
@@ -72,6 +86,7 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({ sx }) => {
                 highlightSelectedOnly
                 onChange={(event, newValue) => {
                     setValue(newValue);
+                    handleChange();
                 }}
                 sx={{ heigth: 80 }}
             />

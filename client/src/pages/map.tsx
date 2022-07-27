@@ -67,7 +67,7 @@ const Map: React.FC<MapProps> = () => {
                             eventHandlers={{
                                 click: () => {
                                     setOpenCreator(true);
-                                }
+                                },
                             }}
                         />
                     )}
@@ -75,7 +75,11 @@ const Map: React.FC<MapProps> = () => {
                 <MapEvents setTemplate={handleChangeTempMarker} />
             </MapContainer>
             {openCreator && (
-                <AddPointWindow open={true} onClose={handleCloseCreator} />
+                <AddPointWindow
+                    open={true}
+                    onClose={handleCloseCreator}
+                    latLng={tempMarker!}
+                />
             )}
         </>
     );
