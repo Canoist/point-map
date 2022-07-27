@@ -4,10 +4,10 @@ const config = require("config");
 const chalk = require("chalk");
 const cors = require("cors");
 const path = require("path");
-const initDB = require("./startApp/initDB");
+const initDB = require("./src/startApp/initDB");
 
 const app = express();
-const router = require("./routes");
+const router = require("./src/routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

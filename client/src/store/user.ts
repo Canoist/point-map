@@ -145,10 +145,14 @@ export const logIn =
             dispatch(userRecieved(user));
             navigate(redirect, { replace: true });
         } catch (error: any) {
-            const { code, message } = error.response.data.error;
-            if (code === 400) {
-                const errorMessage = generateAuthError(message);
-                dispatch(authRequestFailed(errorMessage));
+            if (error.response.data?.error) {
+                const { code, message } = error.response.data?.error;
+                if (code === 400) {
+                    const errorMessage = generateAuthError(message);
+                    dispatch(authRequestFailed(errorMessage));
+                } else {
+                    dispatch(authRequestFailed(error.message));
+                }
             } else {
                 dispatch(authRequestFailed(error.message));
             }

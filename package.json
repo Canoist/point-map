@@ -1,1 +1,10 @@
-{}
+{
+    "name": "point-map",
+    "version": "0.1.0",
+    "private": true,
+    "license": "none",
+    "author": {
+        "name": "Leo Lichkun",
+        "email": "lionproklon@gmail.com"
+    }
+}
