@@ -5,6 +5,7 @@ import RadioGroupRating from "../radioGroupRating";
 import { LatLngExpression } from "leaflet";
 import IPoint from "../../types/IPoint";
 import AddPointAppBar from "./addPointAppBar";
+import HoopProperties from "./pointProperties/hoopProperties";
 
 interface IAddPointWindow {
     open: boolean;
@@ -33,6 +34,8 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
             name: "",
             description: "",
             date: Date.now(),
+            court: "Neutral",
+            hoop: [],
         },
         geometry: {
             type: "Point",
@@ -73,7 +76,7 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
                 <Typography sx={{ mb: 2 }} component="legend">
                     Hoop
                 </Typography>
-                
+                <HoopProperties onChange={handleChange} data={data} />
             </Box>
         </Dialog>
     );

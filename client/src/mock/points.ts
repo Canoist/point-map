@@ -8,6 +8,8 @@ const points: IPoint[] = [
             name: "База рафтинга Кивиниеми",
             description: "Основную часть кода писал здесь",
             date: 1652247815757,
+            court: "",
+            hoop: [],
         },
         geometry: {
             type: "Point",
@@ -22,6 +24,8 @@ const points: IPoint[] = [
             description:
                 "Был судьей на соревнованиях по рафингу на этом озере 14-15 мая",
             date: 1652647215757,
+            court: "",
+            hoop: [],
         },
         geometry: {
             type: "Point",

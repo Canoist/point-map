@@ -65,7 +65,10 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
     const handleChange = () => {
         onChange({
             ...data,
-            properties: { ...data.properties, name: customIcons[value!].label },
+            properties: {
+                ...data.properties,
+                court: customIcons[value!].label,
+            },
         });
     };
 
