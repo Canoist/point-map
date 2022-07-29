@@ -1,19 +1,10 @@
-import {
-    AppBar,
-    Box,
-    Button,
-    Dialog,
-    Slide,
-    Toolbar,
-    Typography,
-} from "@mui/material";
+import { Box, Dialog, Slide, Typography } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import React, { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import RadioGroupRating from "../radioGroupRating";
 import { LatLngExpression } from "leaflet";
 import IPoint from "../../types/IPoint";
+import AddPointAppBar from "./addPointAppBar";
 
 interface IAddPointWindow {
     open: boolean;
@@ -62,28 +53,7 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
             onClose={onClose}
             TransitionComponent={Transition}
         >
-            <AppBar sx={{ position: "relative" }}>
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        onClick={onClose}
-                        aria-label="close"
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <Typography
-                        sx={{ ml: 2, flex: 1 }}
-                        variant="h6"
-                        component="div"
-                    >
-                        Create a new basketball place
-                    </Typography>
-                    <Button autoFocus color="inherit" onClick={onClose}>
-                        save
-                    </Button>
-                </Toolbar>
-            </AppBar>
+            <AddPointAppBar onClose={onClose} />
             <Box sx={{ ml: 4, mt: 2 }}>
                 <Typography sx={{ mb: 2 }} component="legend">
                     Court
@@ -103,11 +73,7 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
                 <Typography sx={{ mb: 2 }} component="legend">
                     Hoop
                 </Typography>
-                <RadioGroupRating
-                    sx={{ mb: 2 }}
-                    data={data}
-                    onChange={handleChange}
-                />
+                
             </Box>
         </Dialog>
     );
