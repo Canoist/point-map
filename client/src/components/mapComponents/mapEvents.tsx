@@ -10,7 +10,7 @@ const MapEvents: React.FC<IMapEvents> = ({ setTemplate }) => {
         contextmenu(e) {
             const { lat, lng } = e.latlng;
             setTemplate([lat, lng]);
-        }
+        },
     });
     return null;
 };

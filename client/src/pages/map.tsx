@@ -9,8 +9,9 @@ import { useAppSelector } from "../store/hooks";
 import MapCurrentLocation from "../components/mapComponents/mapCurrentLocation";
 import MarkerCluster from "../components/hoc/markerCluster";
 import MapEvents from "../components/mapComponents/mapEvents";
-import { LatLngExpression } from "leaflet";
+import { LatLngTuple } from "leaflet";
 import AddPointWindow from "../components/point/addPointWindow";
+import geocodeService from "../services/geocodeService";
 
 interface MapProps {
     points?: any;
@@ -18,14 +19,14 @@ interface MapProps {
 
 const Map: React.FC<MapProps> = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
-    const [tempMarker, setTempMarker] = useState<LatLngExpression | null>(null);
+    const [tempMarker, setTempMarker] = useState<LatLngTuple | null>(null);
     const [openCreator, setOpenCreator] = useState<Boolean>(false);
 
     const handleChangeLocation = (location: IPoint | null) => {
         setActiveLocation(location);
     };
 
-    const handleChangeTempMarker = (latlng: LatLngExpression) => {
+    const handleChangeTempMarker = (latlng: LatLngTuple) => {
         setTempMarker((prev) => (prev ? null : latlng));
     };
 
@@ -65,8 +66,12 @@ const Map: React.FC<MapProps> = () => {
                             position={tempMarker}
                             draggable={true}
                             eventHandlers={{
-                                click: () => {
+                                click: async () => {
                                     setOpenCreator(true);
+                                    const data = await geocodeService.get(
+                                        tempMarker
+                                    );
+                                    console.log(data);
                                 },
                             }}
                         />

@@ -82,7 +82,7 @@ const HoopProperties: React.FC<IHoopProperties> = ({ onChange, data }) => {
     }, [hoopProperties]);
 
     return (
-        <FormControl sx={{ m: 1, width: 350 }}>
+        <FormControl sx={{ width: 350 }}>
             <InputLabel id="hoop-chip-label">Hoop properties</InputLabel>
             <Select
                 labelId="hoop-chip-label"
