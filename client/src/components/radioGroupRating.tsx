@@ -24,23 +24,23 @@ const customIcons: {
 } = {
     1: {
         icon: <SentimentVeryDissatisfiedIcon color="error" />,
-        label: "Very Dissatisfied",
+        label: "Terrible",
     },
     2: {
         icon: <SentimentDissatisfiedIcon color="error" />,
-        label: "Dissatisfied",
+        label: "Bad",
     },
     3: {
         icon: <SentimentSatisfiedIcon color="warning" />,
-        label: "Neutral",
+        label: "Normal",
     },
     4: {
         icon: <SentimentSatisfiedAltIcon color="success" />,
-        label: "Satisfied",
+        label: "Good",
     },
     5: {
         icon: <SentimentVerySatisfiedIcon color="success" />,
-        label: "Very Satisfied",
+        label: "Perfect",
     },
 };
 
