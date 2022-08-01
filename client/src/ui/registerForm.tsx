@@ -60,15 +60,15 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                 {...register("password", {
                     required: {
                         value: true,
-                        message: "Поле обязательно для заполнения",
+                        message: "Field is required",
                     },
                     minLength: {
                         value: 7,
-                        message: "Минимальная длина пароля 7 символов",
+                        message: "Min length is 7 symbols",
                     },
                     pattern: {
                         value: /\d+/g,
-                        message: "Необходимо наличие хотя бы одной цифры",
+                        message: "Password must have one number",
                     },
                 })}
                 InputProps={{
@@ -94,11 +94,11 @@ const RegisterForm: React.FC<ILogin> = ({ toggleForm }) => {
                 {...register("email", {
                     required: {
                         value: true,
-                        message: "Поле обязательно для заполнения",
+                        message: "Field is required",
                     },
                     pattern: {
                         value: /^\S+@\S+\.\S+$/i,
-                        message: "Email введен некорректно. Шаблон abc@abc.com",
+                        message: "Email is incorrect. Example abc@abc.com",
                     },
                 })}
             />

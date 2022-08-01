@@ -13,7 +13,7 @@ import TitleForm from "./titleForm";
 const defaultValues = {
     email: "",
     password: "",
-    stayOn: false
+    stayOn: false,
 };
 
 export type FiledValues = typeof defaultValues;
@@ -54,7 +54,7 @@ const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
             logIn(
                 {
                     payload: data,
-                    redirect: from
+                    redirect: from,
                 },
                 navigate
             )
@@ -91,7 +91,7 @@ const SignInForm: React.FC<ILogin> = ({ toggleForm }) => {
                             onClick={handleClickShowPassword}
                         />
                     ),
-                    type: showPassword ? "text" : "password"
+                    type: showPassword ? "text" : "password",
                 }}
             />
             <SignInButton forSignIn={true} />

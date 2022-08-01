@@ -14,15 +14,15 @@ const TextLastname: React.FC<ITextFieldForm> = ({ error, register }) => {
             {...register("lastname", {
                 required: {
                     value: true,
-                    message: "Поле обязательно для заполнения",
+                    message: "Field is required",
                 },
                 pattern: {
                     value: /^[a-zA-Zа-яА-ЯёЁ']+?$/,
-                    message: "Фамилия должна состоять только из букв",
+                    message: "Lastname must have only letter's",
                 },
                 maxLength: {
                     value: 100,
-                    message: "Максимальное количество символов - 100",
+                    message: "Max symbols - 100",
                 },
             })}
         />

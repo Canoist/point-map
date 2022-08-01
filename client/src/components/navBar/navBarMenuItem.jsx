@@ -28,7 +28,7 @@ const NavBarMenuItem = ({ onClick, setting }) => {
                 }}
                 to={`/${setting.toLowerCase()}`}
             >
-                (setting)
+                {setting}
             </Link>
         </MenuItem>
     );
