@@ -9,6 +9,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { Checkbox, ListItemText } from "@mui/material";
 import IPoint from "../../../types/IPoint";
+import propertiesList from "./propertiesList";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,27 +21,6 @@ const MenuProps = {
         },
     },
 };
-
-const propertiesList = [
-    "Two hoops",
-    "One hoop",
-    "Heigth: Standart",
-    "Heigth: Non-standart (higher)",
-    "Heigth: Non-standart (lower)",
-    "Net: Classic",
-    "Net: Chain",
-    "Net: None",
-    "Net: Classic/None",
-    "Net: Chain/None",
-    "Net: Chain/Classic",
-    "Backboard-material: Wooden",
-    "Backboard-material: Polycarbonate",
-    "Backboard-material: Acrylic",
-    "Backboard-material: Tempered Glass",
-    "Backboard-material: Standart size",
-    "Backboard-material: Non-standart size",
-    "Crooked Hoop",
-];
 
 function getStyles(
     name: string,
@@ -94,12 +74,7 @@ const HoopProperties: React.FC<IHoopProperties> = ({ onChange, data }) => {
                 multiple
                 value={hoopProperties}
                 onChange={handleChange}
-                input={
-                    <OutlinedInput
-                        id="select-multiple-chip"
-                        label="Hoop properties"
-                    />
-                }
+                input={<OutlinedInput label="Hoop properties" />}
                 renderValue={(selected) => (
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected.map((value) => (
