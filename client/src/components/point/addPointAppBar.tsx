@@ -1,0 +1,36 @@
+import React from "react";
+import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
+interface IAddPointAppBar {
+    onClose: any;
+}
+
+const AddPointAppBar: React.FC<IAddPointAppBar> = ({ onClose }) => {
+    return (
+        <AppBar sx={{ position: "relative" }}>
+            <Toolbar>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={onClose}
+                    aria-label="close"
+                >
+                    <CloseIcon />
+                </IconButton>
+                <Typography
+                    sx={{ ml: 2, flex: 1 }}
+                    variant="h6"
+                    component="div"
+                >
+                    Create a new basketball place
+                </Typography>
+                <Button autoFocus color="inherit" onClick={onClose}>
+                    save
+                </Button>
+            </Toolbar>
+        </AppBar>
+    );
+};
+export default AddPointAppBar;
