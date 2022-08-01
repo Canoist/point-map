@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapContainer, Marker } from "react-leaflet";
+import { MapContainer, Marker, Popup } from "react-leaflet";
 import IPoint from "../types/IPoint";
 import MapPopup from "../components/mapComponents/mapPopup";
 import MapMarker from "../components/mapComponents/mapMarker";
@@ -11,6 +11,8 @@ import MarkerCluster from "../components/hoc/markerCluster";
 import MapEvents from "../components/mapComponents/mapEvents";
 import { LatLngTuple } from "leaflet";
 import AddPointWindow from "../components/point/addPointWindow";
+import { getIsLoggedIn } from "../store/user";
+import { Link } from "react-router-dom";
 
 interface MapProps {
     points?: any;
@@ -20,6 +22,8 @@ const Map: React.FC<MapProps> = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
     const [tempMarker, setTempMarker] = useState<LatLngTuple | null>(null);
     const [openCreator, setOpenCreator] = useState<Boolean>(false);
+
+    const isLoggedIn = useAppSelector(getIsLoggedIn());
 
     const handleChangeLocation = (location: IPoint | null) => {
         setActiveLocation(location);
@@ -66,10 +70,15 @@ const Map: React.FC<MapProps> = () => {
                             draggable={true}
                             eventHandlers={{
                                 click: () => {
-                                    setOpenCreator(true);
+                                    isLoggedIn && setOpenCreator(true);
                                 },
                             }}
-                        />
+                        >
+                            <Popup position={[tempMarker[0], tempMarker[1]]}>
+                                To add new point, you need to{" "}
+                                <Link to="/login">Login</Link>
+                            </Popup>
+                        </Marker>
                     )}
                 </MarkerCluster>
                 <MapEvents setTemplate={handleChangeTempMarker} />
