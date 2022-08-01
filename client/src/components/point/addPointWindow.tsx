@@ -1,4 +1,4 @@
-import { Box, Dialog, Slide, Typography } from "@mui/material";
+import { Box, Dialog, Divider, Slide, Typography } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import React, { useEffect, useState } from "react";
 import RadioGroupRating from "../radioGroupRating";
@@ -80,7 +80,8 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
                 <Typography sx={{ mb: 2 }} variant="subtitle1">
                     {data.properties.name}
                 </Typography>
-                <Typography sx={{ mb: 2 }} component="legend">
+                <Divider />
+                <Typography sx={{ mt: 2 }} component="legend">
                     Court
                 </Typography>
                 <Typography
@@ -95,7 +96,8 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
                     data={data}
                     onChange={handleChange}
                 />
-                <Typography sx={{ mb: 2 }} component="legend">
+                <Divider />
+                <Typography sx={{ my: 2 }} component="legend">
                     Hoop
                 </Typography>
                 <HoopProperties onChange={handleChange} data={data} />

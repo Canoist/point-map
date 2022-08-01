@@ -14,9 +14,9 @@ const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
-        style: {
+        sx: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 300,
+            width: { xs: 200, sm: 300 },
         },
     },
 };
@@ -82,7 +82,11 @@ const HoopProperties: React.FC<IHoopProperties> = ({ onChange, data }) => {
     }, [hoopProperties]);
 
     return (
-        <FormControl sx={{ width: 350 }}>
+        <FormControl
+            sx={{
+                width: { xs: 250, sm: 350 },
+            }}
+        >
             <InputLabel id="hoop-chip-label">Hoop properties</InputLabel>
             <Select
                 labelId="hoop-chip-label"
