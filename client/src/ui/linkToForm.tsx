@@ -14,8 +14,9 @@ const LinkToForm: React.FC<ILinkToForm> = ({ forSignIn, toggleForm }) => {
                 fontWeight: "normal",
                 color: "#23252E",
             }}
-            component="p">
-            {forSignIn ? "Еще не с нами?" : "Уже есть аккаунт?"}{" "}
+            component="p"
+        >
+            {forSignIn ? "Not with us?" : "Do you have a account?"}{" "}
             <Link
                 variant="button"
                 underline="always"
@@ -24,9 +25,10 @@ const LinkToForm: React.FC<ILinkToForm> = ({ forSignIn, toggleForm }) => {
                     fontWeight: "normal",
                     cursor: "pointer",
                     color: "#23252E",
-                }}>
+                }}
+            >
                 {" "}
-                {forSignIn ? "Присоединиться" : "Войти"}
+                {forSignIn ? "Sign in" : "Log in"}
             </Link>
         </Typography>
     );

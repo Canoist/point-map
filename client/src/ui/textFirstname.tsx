@@ -8,22 +8,22 @@ const TextFirstname: React.FC<ITextFieldForm> = ({ error, register }) => {
             error={!!error.firstname}
             helperText={error.firstname && error.firstname.message}
             id="firstname"
-            label="Имя"
+            label="Name"
             variant="standard"
             margin="normal"
             {...register("firstname", {
                 required: {
                     value: true,
-                    message: "Поле обязательно для заполнения"
+                    message: "Поле обязательно для заполнения",
                 },
                 pattern: {
                     value: /^[a-zA-Zа-яА-ЯёЁ']+?$/,
-                    message: "Имя должно состоять только из букв"
+                    message: "Имя должно состоять только из букв",
                 },
                 maxLength: {
                     value: 80,
-                    message: "Максимальное количество символов - 80"
-                }
+                    message: "Максимальное количество символов - 80",
+                },
             })}
         />
     );

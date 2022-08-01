@@ -13,8 +13,9 @@ const SignInButton: React.FC<ISignInButton> = ({ forSignIn }) => {
             color="warning"
             sx={{
                 my: 2,
-            }}>
-            {forSignIn ? "Войти" : "Зарегистрироваться"}
+            }}
+        >
+            {forSignIn ? "Login" : "Register"}
         </Button>
     );
 };
