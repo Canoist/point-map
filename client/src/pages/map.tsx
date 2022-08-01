@@ -11,7 +11,6 @@ import MarkerCluster from "../components/hoc/markerCluster";
 import MapEvents from "../components/mapComponents/mapEvents";
 import { LatLngTuple } from "leaflet";
 import AddPointWindow from "../components/point/addPointWindow";
-import geocodeService from "../services/geocodeService";
 
 interface MapProps {
     points?: any;
@@ -66,12 +65,8 @@ const Map: React.FC<MapProps> = () => {
                             position={tempMarker}
                             draggable={true}
                             eventHandlers={{
-                                click: async () => {
+                                click: () => {
                                     setOpenCreator(true);
-                                    const data = await geocodeService.get(
-                                        tempMarker
-                                    );
-                                    console.log(data);
                                 },
                             }}
                         />
