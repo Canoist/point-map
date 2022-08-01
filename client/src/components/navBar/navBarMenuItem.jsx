@@ -4,7 +4,6 @@ import { ListItemIcon, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
-import { translateTab } from "../../utils/translateTab";
 
 const NavBarMenuItem = ({ onClick, setting }) => {
     return (
@@ -12,7 +11,8 @@ const NavBarMenuItem = ({ onClick, setting }) => {
             onClick={onClick}
             sx={{
                 px: "15px",
-            }}>
+            }}
+        >
             <ListItemIcon>
                 {setting === "Logout" ? (
                     <Logout fontSize="small" />
@@ -26,8 +26,9 @@ const NavBarMenuItem = ({ onClick, setting }) => {
                     color: "black",
                     textAlign: "center",
                 }}
-                to={`/${setting.toLowerCase()}`}>
-                {translateTab(setting)}
+                to={`/${setting.toLowerCase()}`}
+            >
+                (setting)
             </Link>
         </MenuItem>
     );

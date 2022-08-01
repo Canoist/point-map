@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Styles from "../../types/styles";
-import { translateTab } from "../../utils/translateTab";
 
 interface INavBarButton {
     page: string;
@@ -37,7 +36,7 @@ const NavBarButton: React.FC<INavBarButton> = ({
                         height: "100%",
                         padding: "1rem 0",
                     }}>
-                    {translateTab(page)}
+                    {page}
                 </div>
             </Link>
         </Button>
