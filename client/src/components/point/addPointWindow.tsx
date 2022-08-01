@@ -9,6 +9,7 @@ import HoopProperties from "./pointProperties/hoopProperties";
 import geocodeService from "../../services/geocodeService";
 import IGeoCode from "../../types/IGeoCode";
 import WindowLoader from "../windowLoader";
+import Adress from "./pointProperties/adress";
 
 interface IAddPointWindow {
     open: boolean;
@@ -76,11 +77,7 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
         >
             <AddPointAppBar onClose={onClose} />
             <Box sx={{ ml: 4, mt: 2 }}>
-                <Typography variant="subtitle1">Adress:</Typography>
-                <Typography sx={{ mb: 2 }} variant="subtitle1">
-                    {data.properties.name}
-                </Typography>
-                <Divider />
+                <Adress adress={data.properties.name} />
                 <Typography sx={{ mt: 2 }} component="legend">
                     Court
                 </Typography>
