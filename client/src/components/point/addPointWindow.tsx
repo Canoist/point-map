@@ -1,7 +1,7 @@
 import { Box, Dialog, Divider, Slide, Typography } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import React, { useEffect, useState } from "react";
-import RadioGroupRating from "../radioGroupRating";
+import RadioGroupRating from "./pointProperties/radioGroupRating";
 import { LatLngTuple } from "leaflet";
 import IPoint from "../../types/IPoint";
 import AddPointAppBar from "./addPointAppBar";
@@ -86,8 +86,8 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
                     onChange={handleChange}
                 />
                 <Divider />
-                <Typography sx={{ my: 2 }} component="legend">
-                    Hoop
+                <Typography sx={{ my: 2, fontWeight: 600 }} component="legend">
+                    Hoop:
                 </Typography>
                 <HoopProperties onChange={handleChange} data={data} />
             </Box>

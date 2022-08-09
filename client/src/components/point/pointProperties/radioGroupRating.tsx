@@ -8,7 +8,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import { Box, Typography } from "@mui/material";
 import { Theme } from "@mui/system";
-import IPoint from "../types/IPoint";
+import IPoint from "../../../types/IPoint";
 
 const StyledRating = styled(Rating)(({ theme }) => ({
     "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -63,19 +63,17 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
     const [value, setValue] = useState<number | null>(3);
 
     function typographyColor(currentValue: number) {
-        console.log(currentValue);
-
         switch (currentValue) {
             case 1:
-                return "error.main";
+                return "error.dark";
             case 2:
-                return "error.main";
+                return "error.light";
             case 3:
                 return "warning.main";
             case 4:
-                return "success.main";
+                return "success.light";
             case 5:
-                return "success.main";
+                return "success.dark";
             default:
                 break;
         }
