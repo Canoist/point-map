@@ -5,9 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 
 interface IAddPointAppBar {
     onClose: any;
+    onSave: any;
 }
 
-const AddPointAppBar: React.FC<IAddPointAppBar> = ({ onClose }) => {
+const AddPointAppBar: React.FC<IAddPointAppBar> = ({ onClose, onSave }) => {
     return (
         <AppBar sx={{ position: "relative" }}>
             <Toolbar>
@@ -26,7 +27,7 @@ const AddPointAppBar: React.FC<IAddPointAppBar> = ({ onClose }) => {
                 >
                     Create a new basketball place
                 </Typography>
-                <Button autoFocus color="inherit" onClick={onClose}>
+                <Button autoFocus color="inherit" onClick={onSave}>
                     save
                 </Button>
             </Toolbar>

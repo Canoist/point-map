@@ -7,7 +7,9 @@ const pointsSchema = new Schema([
             _id: String,
             name: String,
             description: String,
-            date: Date,
+            date: Number,
+            court: String,
+            hoop:[String]
         },
         geometry: {
             type: { type: String },

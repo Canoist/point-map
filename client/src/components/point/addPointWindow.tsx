@@ -11,6 +11,8 @@ import IGeoCode from "../../types/IGeoCode";
 import WindowLoader from "../windowLoader";
 import Adress from "./pointProperties/adress";
 import Court from "./court";
+import { useAppDispatch } from "../../store/hooks";
+import { createPoint } from "../../store/points";
 
 interface IAddPointWindow {
     open: boolean;
@@ -44,9 +46,12 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
         },
         geometry: {
             type: "Point",
-            coordinates: [60.67881898821351, 30.00185121217478],
+            coordinates: latLng,
         },
     });
+
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
         const fetchAdress = async () => {
             const adress: IGeoCode = await geocodeService.get(latLng);
@@ -64,9 +69,12 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
     }, [latLng]);
 
     const handleChange = (data: IPoint) => {
-        console.log(data);
-
         setData(data);
+    };
+
+    const handleSave = () => {
+        dispatch(createPoint(data));
+        onClose(true);
     };
 
     return data.properties.name ? (
@@ -76,7 +84,7 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
             onClose={onClose}
             TransitionComponent={Transition}
         >
-            <AddPointAppBar onClose={onClose} />
+            <AddPointAppBar onClose={onClose} onSave={handleSave} />
             <Box sx={{ ml: 4, mt: 2 }}>
                 <Adress adress={data.properties.name} />
                 <Court />

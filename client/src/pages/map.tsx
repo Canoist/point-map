@@ -33,8 +33,11 @@ const Map: React.FC<MapProps> = () => {
         setTempMarker((prev) => (prev ? null : latlng));
     };
 
-    const handleCloseCreator = () => {
+    const handleCloseCreator = (afterSave: boolean | undefined) => {
         setOpenCreator(false);
+        if (afterSave) {
+            setTempMarker(null);
+        }
     };
 
     const points = useAppSelector(getPoints());
