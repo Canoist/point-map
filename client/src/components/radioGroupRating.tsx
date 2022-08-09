@@ -62,6 +62,25 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
 }) => {
     const [value, setValue] = useState<number | null>(3);
 
+    function typographyColor(currentValue: number) {
+        console.log(currentValue);
+
+        switch (currentValue) {
+            case 1:
+                return "error.main";
+            case 2:
+                return "error.main";
+            case 3:
+                return "warning.main";
+            case 4:
+                return "success.main";
+            case 5:
+                return "success.main";
+            default:
+                break;
+        }
+    }
+
     const handleChange = (newValue: number | null) => {
         setValue(newValue);
 
@@ -79,7 +98,6 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
     return (
         <Box
             sx={{
-                width: 300,
                 display: "flex",
                 alignItems: "center",
                 height: 40,
@@ -99,11 +117,16 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
                 sx={{ heigth: 80 }}
             />
             {value !== null ? (
-                <Typography sx={{ ml: 2 }}>
+                <Typography
+                    sx={{ ml: 2, fontWeight: 600 }}
+                    color={typographyColor(value)}
+                >
                     {customIcons[value].label}
                 </Typography>
             ) : (
-                <Typography sx={{ ml: 2 }}>
+                <Typography
+                    sx={{ ml: 2, fontStyle: "italic", fontWeight: 600 }}
+                >
                     Please, choose a condition
                 </Typography>
             )}
