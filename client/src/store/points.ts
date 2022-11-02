@@ -111,8 +111,6 @@ export const updateOnePoint =
     };
 
 export const removePoint = (id: string) => async (dispatch: Dispatch) => {
-    console.log(id);
-
     try {
         // const { content } = await pointsService.removePoint(id);
         // if (content === null) {

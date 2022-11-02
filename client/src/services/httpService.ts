@@ -29,8 +29,6 @@ http.interceptors.request.use(
         return config;
     },
     function (error) {
-        console.log("err req");
-
         return Promise.reject(error);
     }
 );
