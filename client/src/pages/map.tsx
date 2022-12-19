@@ -12,16 +12,14 @@ import MapEvents from "../components/mapComponents/mapEvents";
 import { LatLngTuple } from "leaflet";
 import AddPointWindow from "../components/point/addPointWindow";
 import { getIsLoggedIn } from "../store/user";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 
-interface MapProps {
-    points?: any;
-}
-
-const Map: React.FC<MapProps> = () => {
+const Map: React.FC = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
     const [tempMarker, setTempMarker] = useState<LatLngTuple | null>(null);
     const [openCreator, setOpenCreator] = useState<Boolean>(false);
+    const navigation = useNavigation();
+    console.log(navigation);
 
     const isLoggedIn = useAppSelector(getIsLoggedIn());
 
