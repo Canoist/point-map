@@ -1,11 +1,7 @@
 import { IFormInputs } from "./../ui/registerForm";
-import {
-    DeepRequired,
-    FieldErrorsImpl,
-    UseFormRegister
-} from "react-hook-form";
+import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
 
 export default interface ITextFieldForm {
-    error: FieldErrorsImpl<DeepRequired<IFormInputs>>;
+    error: FieldErrorsImpl<IFormInputs>;
     register: UseFormRegister<IFormInputs>;
 }

@@ -15,6 +15,7 @@ const App: React.FC = (): JSX.Element => {
             <Routes>
                 <Route path="ownPoints" element={<OwnPoints />} />
                 <Route path="login" element={<Login />} />
+                <Route path="/?lat?lng" element={<Main />} />
                 <Route path="logout" element={<LogOut />} />
                 <Route path="*" element={<Main />} />
             </Routes>

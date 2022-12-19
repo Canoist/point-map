@@ -7,8 +7,6 @@ interface IPointDescription {
 }
 
 const PointDescription: React.FC<IPointDescription> = ({ point }) => {
-    console.log(point);
-
     return <Box component="form">Point Description</Box>;
 };
 

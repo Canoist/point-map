@@ -7,7 +7,9 @@ interface IAdress {
 const Adress: React.FC<IAdress> = ({ adress }) => {
     return (
         <>
-            <Typography variant="subtitle1">Adress:</Typography>
+            <Typography sx={{ fontWeight: 600 }} variant="subtitle1">
+                Adress:
+            </Typography>
             <Typography sx={{ mb: 2 }} variant="subtitle1">
                 {adress}
             </Typography>

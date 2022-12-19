@@ -81,8 +81,8 @@ export const loadPoints = () => async (dispatch: Dispatch) => {
 
 export const createPoint = (payload: IPoint) => async (dispatch: Dispatch) => {
     try {
-        const { content } = await pointsService.createPoint(payload);
-        dispatch(pointCreated(content));
+        const data = await pointsService.createPoint(payload);
+        dispatch(pointCreated(data));
     } catch (error: any) {
         dispatch(pointsRequestFailed(error.message));
     }
@@ -111,8 +111,6 @@ export const updateOnePoint =
     };
 
 export const removePoint = (id: string) => async (dispatch: Dispatch) => {
-    console.log(id);
-
     try {
         // const { content } = await pointsService.removePoint(id);
         // if (content === null) {

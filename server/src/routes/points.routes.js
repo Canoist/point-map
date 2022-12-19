@@ -26,6 +26,17 @@ router.patch("/:pointId", auth, async (req, res) => {
     }
 });
 
+router.put("/:pointId", async (req, res) => {
+    try {
+        const createdPoint = await Point.create(req.body);
+        res.send(createdPoint);
+    } catch (error) {
+        res.status(500).json({
+            message: "На сервере произошла ошибка. Попробуйте позже",
+        });
+    }
+});
+
 router.get("/", async (req, res) => {
     try {
         const points = await Point.find();

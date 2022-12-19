@@ -22,8 +22,8 @@ function createMarkerCluster({ children: _c, ...props }: any, context: any) {
         instance,
         context: {
             ...context,
-            layerContainer: instance
-        }
+            layerContainer: instance,
+        },
     };
 }
 

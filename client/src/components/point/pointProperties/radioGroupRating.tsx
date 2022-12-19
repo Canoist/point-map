@@ -6,9 +6,9 @@ import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Theme } from "@mui/system";
-import IPoint from "../types/IPoint";
+import IPoint from "../../../types/IPoint";
 
 const StyledRating = styled(Rating)(({ theme }) => ({
     "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -23,23 +23,23 @@ const customIcons: {
     };
 } = {
     1: {
-        icon: <SentimentVeryDissatisfiedIcon color="error" />,
+        icon: <SentimentVeryDissatisfiedIcon fontSize="large" color="error" />,
         label: "Terrible",
     },
     2: {
-        icon: <SentimentDissatisfiedIcon color="error" />,
+        icon: <SentimentDissatisfiedIcon fontSize="large" color="error" />,
         label: "Bad",
     },
     3: {
-        icon: <SentimentSatisfiedIcon color="warning" />,
+        icon: <SentimentSatisfiedIcon fontSize="large" color="warning" />,
         label: "Normal",
     },
     4: {
-        icon: <SentimentSatisfiedAltIcon color="success" />,
+        icon: <SentimentSatisfiedAltIcon fontSize="large" color="success" />,
         label: "Good",
     },
     5: {
-        icon: <SentimentVerySatisfiedIcon color="success" />,
+        icon: <SentimentVerySatisfiedIcon fontSize="large" color="success" />,
         label: "Perfect",
     },
 };
@@ -62,22 +62,43 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
 }) => {
     const [value, setValue] = useState<number | null>(3);
 
-    const handleChange = () => {
-        onChange({
-            ...data,
-            properties: {
-                ...data.properties,
-                court: customIcons[value!].label,
-            },
-        });
+    function typographyColor(currentValue: number) {
+        switch (currentValue) {
+            case 1:
+                return "error.dark";
+            case 2:
+                return "error.light";
+            case 3:
+                return "warning.main";
+            case 4:
+                return "success.light";
+            case 5:
+                return "success.dark";
+            default:
+                break;
+        }
+    }
+
+    const handleChange = (newValue: number | null) => {
+        setValue(newValue);
+
+        if (newValue !== null) {
+            onChange({
+                ...data,
+                properties: {
+                    ...data.properties,
+                    court: customIcons[newValue!].label,
+                },
+            });
+        }
     };
 
     return (
         <Box
             sx={{
-                width: 270,
                 display: "flex",
                 alignItems: "center",
+                height: 40,
                 ...sx,
             }}
         >
@@ -87,14 +108,25 @@ const RadioGroupRating: React.FC<IRadioGroupRating> = ({
                 IconContainerComponent={IconContainer}
                 getLabelText={(value: number) => customIcons[value].label}
                 highlightSelectedOnly
+                precision={1}
                 onChange={(event, newValue) => {
-                    setValue(newValue);
-                    handleChange();
+                    handleChange(newValue);
                 }}
                 sx={{ heigth: 80 }}
             />
-            {value !== null && (
-                <Box sx={{ ml: 2 }}>{customIcons[value].label}</Box>
+            {value !== null ? (
+                <Typography
+                    sx={{ ml: 2, fontWeight: 600 }}
+                    color={typographyColor(value)}
+                >
+                    {customIcons[value].label}
+                </Typography>
+            ) : (
+                <Typography
+                    sx={{ ml: 2, fontStyle: "italic", fontWeight: 600 }}
+                >
+                    Please, choose a condition
+                </Typography>
             )}
         </Box>
     );
