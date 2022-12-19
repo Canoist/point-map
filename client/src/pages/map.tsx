@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup } from "react-leaflet";
 import IPoint from "../types/IPoint";
 import MapPopup from "../components/mapComponents/mapPopup";
@@ -14,28 +14,27 @@ import AddPointWindow from "../components/point/addPointWindow";
 import { getIsLoggedIn } from "../store/user";
 import { Link, useSearchParams } from "react-router-dom";
 
-interface currentPoint {
-    lat: number;
-    lng: number;
-}
-
 const Map: React.FC = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
     const [tempMarker, setTempMarker] = useState<LatLngTuple | null>(null);
+    const [pointFromQuery, setPointFromQuery] = useState<LatLngTuple | null>(
+        null
+    );
     const [openCreator, setOpenCreator] = useState<Boolean>(false);
+    const [queryBecomes, setQueryBecomes] = useState<Boolean>(false);
     const [search] = useSearchParams();
 
-    const currentPoint: currentPoint = {
-        lat: Number(search.get("lat")),
-        lng: Number(search.get("lng")),
-    };
-
-    const hasCurrentPoint = (point: currentPoint) => {
-        if (typeof point?.lat == "number" && typeof point?.lng == "number") {
-            return true;
+    useEffect(() => {
+        if (search.get("lat") !== null && search.get("lng") !== null) {
+            setPointFromQuery([
+                Number(search.get("lat")),
+                Number(search.get("lng")),
+            ]);
+        } else {
+            setPointFromQuery(null);
         }
-        return false;
-    };
+        setQueryBecomes(true);
+    }, [search]);
 
     const isLoggedIn = useAppSelector(getIsLoggedIn());
 
@@ -57,61 +56,65 @@ const Map: React.FC = () => {
     const points = useAppSelector(getPoints());
 
     return (
-        <>
-            <MapContainer
-                center={
-                    hasCurrentPoint(currentPoint)
-                        ? [currentPoint.lat, currentPoint.lng]
-                        : [60.1986, 30.3141]
-                }
-                zoom={hasCurrentPoint(currentPoint) ? 15 : 8}
-                scrollWheelZoom={true}
-            >
-                <MapCurrentLocation />
-                <MapLayer />
-                <MarkerCluster>
-                    {points &&
-                        points.map((point: IPoint) => (
-                            <MapMarker
-                                key={point.properties._id}
-                                point={point}
-                                setActiveLocation={handleChangeLocation}
+        queryBecomes && (
+            <>
+                <MapContainer
+                    center={
+                        pointFromQuery ? pointFromQuery : [60.1986, 30.3141]
+                    }
+                    zoom={pointFromQuery ? 15 : 8}
+                    scrollWheelZoom={true}
+                >
+                    <MapCurrentLocation />
+                    <MapLayer />
+                    <MarkerCluster>
+                        {points &&
+                            points.map((point: IPoint) => (
+                                <MapMarker
+                                    key={point.properties._id}
+                                    point={point}
+                                    setActiveLocation={handleChangeLocation}
+                                >
+                                    {activeLocation && (
+                                        <MapPopup
+                                            setActiveLocation={
+                                                handleChangeLocation
+                                            }
+                                            activeLocation={activeLocation}
+                                        />
+                                    )}
+                                </MapMarker>
+                            ))}
+                        {tempMarker && (
+                            <Marker
+                                position={tempMarker}
+                                draggable={true}
+                                eventHandlers={{
+                                    click: () => {
+                                        isLoggedIn && setOpenCreator(true);
+                                    },
+                                }}
                             >
-                                {activeLocation && (
-                                    <MapPopup
-                                        setActiveLocation={handleChangeLocation}
-                                        activeLocation={activeLocation}
-                                    />
-                                )}
-                            </MapMarker>
-                        ))}
-                    {tempMarker && (
-                        <Marker
-                            position={tempMarker}
-                            draggable={true}
-                            eventHandlers={{
-                                click: () => {
-                                    isLoggedIn && setOpenCreator(true);
-                                },
-                            }}
-                        >
-                            <Popup position={[tempMarker[0], tempMarker[1]]}>
-                                To add new point, you need to{" "}
-                                <Link to="/login">Login</Link>
-                            </Popup>
-                        </Marker>
-                    )}
-                </MarkerCluster>
-                <MapEvents setTemplate={handleChangeTempMarker} />
-            </MapContainer>
-            {openCreator && (
-                <AddPointWindow
-                    open={true}
-                    onClose={handleCloseCreator}
-                    latLng={tempMarker!}
-                />
-            )}
-        </>
+                                <Popup
+                                    position={[tempMarker[0], tempMarker[1]]}
+                                >
+                                    To add new point, you need to{" "}
+                                    <Link to="/login">Login</Link>
+                                </Popup>
+                            </Marker>
+                        )}
+                    </MarkerCluster>
+                    <MapEvents setTemplate={handleChangeTempMarker} />
+                </MapContainer>
+                {openCreator && (
+                    <AddPointWindow
+                        open={true}
+                        onClose={handleCloseCreator}
+                        latLng={tempMarker!}
+                    />
+                )}
+            </>
+        )
     );
 };
 export default Map;
