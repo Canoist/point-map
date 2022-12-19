@@ -12,14 +12,30 @@ import MapEvents from "../components/mapComponents/mapEvents";
 import { LatLngTuple } from "leaflet";
 import AddPointWindow from "../components/point/addPointWindow";
 import { getIsLoggedIn } from "../store/user";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+
+interface currentPoint {
+    lat: number;
+    lng: number;
+}
 
 const Map: React.FC = () => {
     const [activeLocation, setActiveLocation] = useState<IPoint | null>(null);
     const [tempMarker, setTempMarker] = useState<LatLngTuple | null>(null);
     const [openCreator, setOpenCreator] = useState<Boolean>(false);
-    const navigation = useNavigation();
-    console.log(navigation);
+    const [search] = useSearchParams();
+
+    const currentPoint: currentPoint = {
+        lat: Number(search.get("lat")),
+        lng: Number(search.get("lng")),
+    };
+
+    const hasCurrentPoint = (point: currentPoint) => {
+        if (typeof point?.lat == "number" && typeof point?.lng == "number") {
+            return true;
+        }
+        return false;
+    };
 
     const isLoggedIn = useAppSelector(getIsLoggedIn());
 
@@ -43,8 +59,12 @@ const Map: React.FC = () => {
     return (
         <>
             <MapContainer
-                center={[60.1986, 30.3141]}
-                zoom={8}
+                center={
+                    hasCurrentPoint(currentPoint)
+                        ? [currentPoint.lat, currentPoint.lng]
+                        : [60.1986, 30.3141]
+                }
+                zoom={hasCurrentPoint(currentPoint) ? 15 : 8}
                 scrollWheelZoom={true}
             >
                 <MapCurrentLocation />

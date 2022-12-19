@@ -1,6 +1,6 @@
 import { Box, Divider, List, ListItemButton, Typography } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import PointListItem from "../components/point/pointListItem";
 import { useAppSelector } from "../store/hooks";
 import { getPoints } from "../store/points";
@@ -24,9 +24,13 @@ const PointListPage: React.FC = () => {
                             )}
                             <ListItemButton
                                 onClick={() =>
-                                    navigate(
-                                        `/?lat=${point.geometry.coordinates[0]}?lng=${point.geometry.coordinates[1]}`
-                                    )
+                                    navigate({
+                                        pathname: "/",
+                                        search: createSearchParams({
+                                            lat: point.geometry.coordinates[0].toString(),
+                                            lng: point.geometry.coordinates[1].toString(),
+                                        }).toString(),
+                                    })
                                 }
                             >
                                 <PointListItem point={point} />
