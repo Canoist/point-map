@@ -2,7 +2,7 @@
 
 This project used for adding basketball courts on map.
 
-## Bootstraped with
+## Bootstrapped with
 
 This project based on React, Redux, MUI, Leaflet, Express, MongoDB.
 
