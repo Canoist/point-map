@@ -46,7 +46,7 @@ const Map: React.FC = () => {
         setTempMarker((prev) => (prev ? null : latlng));
     };
 
-    const handleCloseCreator = (afterSave: boolean | undefined) => {
+    const handleCloseCreator = (afterSave?: boolean) => {
         setOpenCreator(false);
         if (afterSave) {
             setTempMarker(null);

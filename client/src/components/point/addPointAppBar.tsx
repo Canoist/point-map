@@ -5,7 +5,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 interface IAddPointAppBar {
     onClose: any;
-    onSave: any;
+    onSave: () => void;
 }
 
 const AddPointAppBar: React.FC<IAddPointAppBar> = ({ onClose, onSave }) => {

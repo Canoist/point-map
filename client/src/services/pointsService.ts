@@ -1,7 +1,7 @@
 import IPoint from "../types/IPoint";
 import httpService from "./httpService";
 
-const pointsEndPoint = "points/";
+const pointsEndPoint = "points";
 
 const pointsService = {
     get: async () => {
@@ -10,7 +10,7 @@ const pointsService = {
     },
     createPoint: async (payload: IPoint) => {
         const { data } = await httpService.put(
-            pointsEndPoint + payload.properties._id,
+            pointsEndPoint + "/" + payload.properties._id,
             payload
         );
         return data;
@@ -22,14 +22,14 @@ const pointsService = {
     patchOne: async (payload: IPoint) => {
         // Нужно обновить одну точку по его id
         const { data } = await httpService.patch(
-            pointsEndPoint + payload.properties._id,
+            pointsEndPoint + "/" + payload.properties._id,
             payload
         );
         // Нужно вернуть массив точек
         return data;
     },
     removePoint: async (id: string) => {
-        const { data } = await httpService.delete(pointsEndPoint + id);
+        const { data } = await httpService.delete(pointsEndPoint + "/" + id);
         return data;
     },
 };

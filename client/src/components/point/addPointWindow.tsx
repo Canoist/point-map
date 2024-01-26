@@ -16,7 +16,7 @@ import { createPoint } from "../../store/points";
 
 interface IAddPointWindow {
     open: boolean;
-    onClose: any;
+    onClose: (afterSave?: boolean) => void;
     latLng: LatLngTuple;
 }
 
@@ -81,7 +81,7 @@ const AddPointWindow: React.FC<IAddPointWindow> = ({
         <Dialog
             fullScreen
             open={open}
-            onClose={onClose}
+            onClose={() => onClose()}
             TransitionComponent={Transition}
         >
             <AddPointAppBar onClose={onClose} onSave={handleSave} />

@@ -7,9 +7,7 @@ const httpAuth = axios.create({
     params: { key: process.env.REACT_APP_FIREBASE_KEY },
 });
 
-export interface IString {
-    [key: string]: string;
-}
+export type IString = Record<string, string>;
 
 const authService = {
     register: async (payload: string) => {
